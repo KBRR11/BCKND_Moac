@@ -26,8 +26,14 @@ class MovilidadAcademidaBckndApplicationTests {
 		usuariosDao.update_colores(us);
 	}*/
 	
-	@Test
+	/*@Test
 	void epForId() {
 	assertTrue(epDao.readEpForFAC(3)!=null);
+	}*/
+	
+	@Test
+	void autentificarUser() {
+
+		assertTrue(usuariosDao.validarUsuario("salma")!=null);
 	}
 }

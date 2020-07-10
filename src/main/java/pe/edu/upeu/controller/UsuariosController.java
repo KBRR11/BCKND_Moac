@@ -128,9 +128,33 @@ public class UsuariosController {
 	}
 	
 	@Secured({"ROLE_ADMIN","ROLE_SECRETARY"})
+	@GetMapping("/contEst_active")
+	public Map<String, Object> contadorEstudents_Active() {
+		return usuariosService.contadorEstudents_Active();
+	}
+	
+	@Secured({"ROLE_ADMIN","ROLE_SECRETARY"})
+	@GetMapping("/contTeach_active")
+	public Map<String, Object> contadorTeachers_Active() {
+		return usuariosService.contadorTeachers_Active();
+	}
+	
+	@Secured({"ROLE_ADMIN","ROLE_SECRETARY"})
 	@GetMapping("/contador_pending")
 	public Map<String, Object> contadorUsers_Pending() {
 		return usuariosService.contadorUsers_Pending();
+	}
+	
+	@Secured({"ROLE_ADMIN","ROLE_SECRETARY"})
+	@GetMapping("/contEst_pending")
+	public Map<String, Object> contadorEstudents_Pending() {
+		return usuariosService.contadorEstudents_Pending();
+	}
+	
+	@Secured({"ROLE_ADMIN","ROLE_SECRETARY"})
+	@GetMapping("/contTeach_pending")
+	public Map<String, Object> contadorTeachers_Pending() {
+		return usuariosService.contadorTeachers_Pending();
 	}
 	
 	@Secured({"ROLE_ADMIN","ROLE_SECRETARY","ROLE_STUDENT","ROLE_TEACHER"})

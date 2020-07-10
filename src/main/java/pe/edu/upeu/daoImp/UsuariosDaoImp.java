@@ -183,6 +183,46 @@ public class UsuariosDaoImp implements UsuariosDao {
 		return jdbcTemplate.update("call PKG_CRUD_USUARIOS.PR_ACTUALIZAR_COLOR(?,?,?)",
 				colores.getIdusuario(),colores.getColor_fondo(),colores.getColor_menu());
 	}
+	
+	@Override
+	public Map<String, Object> contadorEstudents_Active() {
+		// TODO Auto-generated method stub
+		simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("PR_CONTADOR_ESTUDENTS_ACTIVOS")
+				.withCatalogName("PKG_CRUD_USUARIOS")
+				.declareParameters(new SqlOutParameter("P_CURSOR_EST_ACT", OracleTypes.CURSOR, new ColumnMapRowMapper()));
+		return simpleJdbcCall.execute();
+	}
+	
+	@Override
+	public Map<String, Object> contadorTeachers_Active() {
+		// TODO Auto-generated method stub
+		simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("PR_CONTADOR_TEACHERS_ACTIVOS")
+				.withCatalogName("PKG_CRUD_USUARIOS")
+				.declareParameters(new SqlOutParameter("P_CURSOR_TEACH_ACT", OracleTypes.CURSOR, new ColumnMapRowMapper()));
+		return simpleJdbcCall.execute();
+	}
+	
+	@Override
+	public Map<String, Object> contadorEstudents_Pending() {
+		// TODO Auto-generated method stub
+		simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("PR_CONTADOR_ESTUDENTS_PENDIENTES")
+				.withCatalogName("PKG_CRUD_USUARIOS")
+				.declareParameters(new SqlOutParameter("P_CURSOR_EST_PEN", OracleTypes.CURSOR, new ColumnMapRowMapper()));
+		return simpleJdbcCall.execute();
+	}
+	
+	@Override
+	public Map<String, Object> contadorTeachers_Pending() {
+		// TODO Auto-generated method stub
+		simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("PR_CONTADOR_TEACHERS_PENDIENTES")
+				.withCatalogName("PKG_CRUD_USUARIOS")
+				.declareParameters(new SqlOutParameter("P_CURSOR_TEACH_PEN", OracleTypes.CURSOR, new ColumnMapRowMapper()));
+		return simpleJdbcCall.execute();
+	}
 
 	@Override
 	@Transactional(readOnly = true)

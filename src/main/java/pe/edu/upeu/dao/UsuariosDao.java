@@ -23,7 +23,11 @@ public interface UsuariosDao {
 	public Map<String,Object> readName(String nameUser);
 	public Map<String,Object> readCodigo(String codigo);
 	public Map<String, Object> contadorUsers_Active();
+	public Map<String, Object> contadorEstudents_Active();
+	public Map<String, Object> contadorTeachers_Active();
 	public Map<String, Object> contadorUsers_Pending();
+	public Map<String, Object> contadorEstudents_Pending();
+	public Map<String, Object> contadorTeachers_Pending();
 	public int update_colores(Usuarios colores);
 	Usuarios validarUsuario(String username);
 	Map<String, Object> datosUsuario(String username);

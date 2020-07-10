@@ -126,4 +126,28 @@ public class UsuariosServiceImp implements UsuariosService {
 		return usuariosDao.update_colores(colores);
 	}
 
+	@Override
+	public Map<String, Object> contadorEstudents_Pending() {
+		// TODO Auto-generated method stub
+		return usuariosDao.contadorEstudents_Pending();
+	}
+
+	@Override
+	public Map<String, Object> contadorTeachers_Pending() {
+		// TODO Auto-generated method stub
+		return usuariosDao.contadorTeachers_Pending();
+	}
+
+	@Override
+	public Map<String, Object> contadorEstudents_Active() {
+		// TODO Auto-generated method stub
+		return usuariosDao.contadorEstudents_Active();
+	}
+
+	@Override
+	public Map<String, Object> contadorTeachers_Active() {
+		// TODO Auto-generated method stub
+		return usuariosDao.contadorTeachers_Active();
+	}
+
 }
