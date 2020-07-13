@@ -29,7 +29,7 @@ public class PersonasController {
 		return personasService.create(per);
 	}
 	
-	@Secured({"ROLE_ADMIN","ROLE_SECRETARY"})
+	@Secured({"ROLE_ADMIN","ROLE_SECRETARY", "ROLE_STUDENT"})
 		@GetMapping("personas/")
 		public Map<String, Object> readAll() {
 			return personasService.readAll();

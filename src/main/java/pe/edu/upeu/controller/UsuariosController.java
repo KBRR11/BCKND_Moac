@@ -163,4 +163,31 @@ public class UsuariosController {
 		colores.setIdusuario(id);
 		return usuariosService.update_colores(colores);
 	}
+
+
+	
+	@Secured({"ROLE_DIGETTI", "ROLE_STUDENT"})
+	@PostMapping("/add_user")
+	public int create_user(@RequestBody Usuarios users) {
+		return usuariosService.create_user(users);
+	}
+	
+	@Secured({"ROLE_DIGETTI", "ROLE_STUDENT"})
+	@PutMapping("/update/{id}")
+	public int update_user(@RequestBody Usuarios users, @PathVariable int id) {
+		users.setIdusuario(id);
+		return usuariosService.update_user(users);
+	}
+	
+	@Secured({"ROLE_STUDENT"})
+	@GetMapping("/listar")
+	public Map<String, Object> listarAll() {
+		return usuariosService.listarTodo();
+
+    }
+	@Secured({"ROLE_STUDENT"})
+	@GetMapping("/listar/{id}")
+	public Map<String,Object> listar(@PathVariable int id) {
+		return usuariosService.listar(id);
+	}
 }

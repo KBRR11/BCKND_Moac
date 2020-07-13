@@ -149,5 +149,28 @@ public class UsuariosServiceImp implements UsuariosService {
 		// TODO Auto-generated method stub
 		return usuariosDao.contadorTeachers_Active();
 	}
+	@Override
+	public int create_user(Usuarios users) {
+		// TODO Auto-generated method stub
+		return usuariosDao.create_user(users);
+	}
+
+	@Override
+	public int update_user(Usuarios users) {
+		// TODO Auto-generated method stub
+		return usuariosDao.update_user(users);
+	}
+
+	@Override
+	public Map<String, Object> listarTodo() {
+		// TODO Auto-generated method stub
+		return usuariosDao.listarTodo();
+	}
+
+	@Override
+	public Map<String, Object> listar(int id) {
+		// TODO Auto-generated method stub
+		return usuariosDao.listar(id);
+	}
 
 }

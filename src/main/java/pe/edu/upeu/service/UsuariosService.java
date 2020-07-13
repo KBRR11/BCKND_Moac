@@ -28,4 +28,9 @@ public interface UsuariosService {
 	public Map<String, Object> contadorEstudents_Pending();
 	public Map<String, Object> contadorTeachers_Pending();
 	public int update_colores(Usuarios colores);
+
+	public int create_user(Usuarios users);
+	public int update_user(Usuarios users);
+	public Map<String, Object> listarTodo();
+	public Map<String, Object> listar(int id);
 }

@@ -4,12 +4,19 @@ public class Roles {
 	private int idrol;
 	private String nombre;
 	private int estado;
+	private String detalle;
 	
 	public Roles() {
 		super();
 		
 	}
-
+	public Roles(int idrol, String nombre, int estado, String detalle) {
+		super();
+		this.idrol = idrol;
+		this.nombre = nombre;
+		this.estado = estado;
+		this.detalle = detalle;
+	}
 	public Roles(int idrol, String nombre, int estado) {
 		super();
 		this.idrol = idrol;

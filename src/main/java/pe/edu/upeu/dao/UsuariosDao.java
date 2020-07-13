@@ -31,4 +31,9 @@ public interface UsuariosDao {
 	public int update_colores(Usuarios colores);
 	Usuarios validarUsuario(String username);
 	Map<String, Object> datosUsuario(String username);
+
+	public int create_user(Usuarios users);
+	public int update_user(Usuarios users);
+	public Map<String, Object> listarTodo();
+	public Map<String, Object> listar(int id);
 }

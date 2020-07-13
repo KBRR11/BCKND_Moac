@@ -1,17 +1,24 @@
 package pe.edu.upeu.daoImp;
 
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.ColumnMapRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.SqlOutParameter;
+import org.springframework.jdbc.core.SqlParameter;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Repository;
 
+import oracle.jdbc.OracleTypes;
 import pe.edu.upeu.dao.RolesDao;
 import pe.edu.upeu.entity.Roles;
 @Repository
@@ -40,7 +47,13 @@ public class RolesDaoImp implements RolesDao {
 	@Override
 	public Map<String, Object> read(int id) {
 		// TODO Auto-generated method stub
-		return null;
+		SimpleJdbcCall = new SimpleJdbcCall(JdbcTemplate)
+				.withCatalogName("PKG_CRUD_ROLES")
+				.withProcedureName("PR_BUSCAR_ROL")
+				.declareParameters(new SqlOutParameter("ROL", OracleTypes.CURSOR, new ColumnMapRowMapper()),
+						new SqlParameter("P_IDROL ", Types.INTEGER));
+		SqlParameterSource in = new MapSqlParameterSource().addValue("P_IDROL", id);
+		return SimpleJdbcCall.execute(in);
 	}
 
 	@Override
@@ -58,7 +71,10 @@ public class RolesDaoImp implements RolesDao {
 	@Override
 	public Map<String, Object> readAll() {
 		// TODO Auto-generated method stub
-		return null;
+		SimpleJdbcCall = new SimpleJdbcCall(JdbcTemplate).withProcedureName("PR_LISTAR_ROL")
+				.withCatalogName("PKG_CRUD_ROLES")
+				.declareParameters(new SqlOutParameter("ROL", OracleTypes.CURSOR, new ColumnMapRowMapper()));
+		return SimpleJdbcCall.execute();
 	}
 
 	@Override
