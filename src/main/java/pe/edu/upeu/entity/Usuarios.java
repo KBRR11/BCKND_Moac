@@ -65,6 +65,20 @@ public Usuarios(String codigo, String usuario, String password, int sede, int ti
 	this.idrol = idrol;
 }
 
+public Usuarios(String codigo, String usuario, String password, int sede, int tipo, int idep, String ciclo,
+		String n_documento, int idrol) {
+	super();
+	this.codigo = codigo;
+	this.usuario = usuario;
+	this.password = password;
+	this.sede = sede;
+	this.tipo = tipo;
+	this.idep = idep;
+	this.ciclo = ciclo;
+	this.n_documento = n_documento;
+	this.idrol = idrol;
+}
+
 public Usuarios(int idusuario, String color_fondo, String color_menu) {
 	super();
 	this.idusuario = idusuario;

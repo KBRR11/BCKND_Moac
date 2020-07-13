@@ -204,4 +204,41 @@ public class UsuariosDaoImp implements UsuariosDao {
 		return map;
 	}
 
+	@Override
+	public int create_user(Usuarios users) {
+		// TODO Auto-generated method stub
+		return jdbcTemplate.update("call PKG_CRUD_USUARIOS.PR_CREAR_USER(?,?,?,?,?,?,?,?,?)",
+				users.getCodigo(),users.getUsuario(),new BCryptPasswordEncoder().encode((users.getPassword())),users.getSede(),
+				users.getTipo(),users.getIdep(), users.getCiclo(), users.getIdrol(), users.getN_documento());
+	}
+
+	@Override
+	public int update_user(Usuarios users) {
+		// TODO Auto-generated method stub
+		return jdbcTemplate.update("call PKG_CRUD_USUARIOS.PR_MODIFICAR_USER(?,?,?,?,?,?,?,?)",
+				users.getIdusuario(),users.getCodigo(),users.getUsuario(),new BCryptPasswordEncoder().encode((users.getPassword())),users.getSede(),
+				users.getTipo(),users.getIdep(), users.getCiclo());
+	}
+
+	@Override
+	public Map<String, Object> listarTodo() {
+		// TODO Auto-generated method stub
+		simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("PR_LISTAR_USER")
+				.withCatalogName("PKG_CRUD_USUARIOS")
+				.declareParameters(new SqlOutParameter("LIST_USER", OracleTypes.CURSOR, new ColumnMapRowMapper()));
+		return simpleJdbcCall.execute();
+	}
+
+	@Override
+	public Map<String, Object> listar(int id) {
+		// TODO Auto-generated method stub
+		simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate).withProcedureName("PR_LISTAR_USER_ID")
+				.withCatalogName("PKG_CRUD_USUARIOS")
+				.declareParameters(new SqlOutParameter("LIST_USER", OracleTypes.CURSOR, new ColumnMapRowMapper()),
+						new SqlParameter("P_IDUSUARIO", Types.INTEGER));
+		SqlParameterSource in = new MapSqlParameterSource().addValue("P_IDUSUARIO", id);
+		return simpleJdbcCall.execute(in);
+	}
+
 }

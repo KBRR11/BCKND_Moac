@@ -42,6 +42,7 @@ public class RequisitoController {
 		req.setIdrequisito(id);
 		return requisitosService.update(req);
 	}
+	
 	@Secured({"ROLE_STUDENT"})
 	@DeleteMapping("/requisitos/del/{id}")
 	public int delete(@PathVariable int id) {
