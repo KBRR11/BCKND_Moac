@@ -1,6 +1,6 @@
 HELP.md
-pom.xml
-application.properties
+
+
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
