@@ -8,6 +8,10 @@ public class Recursos {
 	private int iduniversidad;
 	private int idconvocatoria;
 	private int idconvenio;
+	private int idcambio;
+	
+
+
 	private byte[] data;
 	public Recursos(String nom_recurso, String ruta, int tipo, int iduniversidad, int idconvocatoria, int idconvenio,
 			byte[] data) {
@@ -20,6 +24,33 @@ public class Recursos {
 		this.idconvenio = idconvenio;
 		this.data = data;
 	}
+	
+	public Recursos(int idrecurso, String nom_recurso, String ruta, int tipo) {
+		super();
+		this.idrecurso = idrecurso;
+		this.nom_recurso = nom_recurso;
+		this.ruta = ruta;
+		this.tipo = tipo;
+	}
+
+	public Recursos() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+
+	public Recursos(int idrecurso, String nom_recurso, String ruta, int tipo, int iduniversidad, int idconvocatoria,
+			int idconvenio) {
+		super();
+		this.idrecurso = idrecurso;
+		this.nom_recurso = nom_recurso;
+		this.ruta = ruta;
+		this.tipo = tipo;
+		this.iduniversidad = iduniversidad;
+		this.idconvocatoria = idconvocatoria;
+		this.idconvenio = idconvenio;
+	}
+
 	public int getIdrecurso() {
 		return idrecurso;
 	}
@@ -67,6 +98,14 @@ public class Recursos {
 	}
 	public void setData(byte[] data) {
 		this.data = data;
+	}
+
+	public int getIdcambio() {
+		return idcambio;
+	}
+
+	public void setIdcambio(int idcambio) {
+		this.idcambio = idcambio;
 	}
 	
 }

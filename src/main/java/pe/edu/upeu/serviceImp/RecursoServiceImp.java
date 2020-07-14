@@ -6,9 +6,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import pe.edu.upeu.dao.RecursosDao;
 import pe.edu.upeu.entity.Recursos;
 import pe.edu.upeu.service.RecursoService;
 @Service
@@ -16,42 +18,43 @@ public class RecursoServiceImp implements RecursoService{
 	
 	private String folder=".//src//main//resources//file//";
 	
-	private void savefile(MultipartFile file) throws IOException {
-		// TODO Auto-generated method stub
-		if (file.isEmpty()) {
-			byte[] bytes = file.getBytes();
-			Path path= Paths.get(folder+file.getOriginalFilename());
-			Files.write(path, bytes);
-		}
-	}
+	@Autowired
+	private RecursosDao recursoDao;
+	
 	@Override
 	public int create(Recursos rec) {
 		// TODO Auto-generated method stub
-		return 0;
+		return recursoDao.create(rec);
 	}
 
 	@Override
 	public int update(Recursos rec) {
 		// TODO Auto-generated method stub
-		return 0;
+		return recursoDao.update(rec);
 	}
 
 	@Override
 	public int delete(int idrec) {
 		// TODO Auto-generated method stub
-		return 0;
+		return recursoDao.delete(idrec);
 	}
 
 	@Override
 	public Map<String, Object> read(int idrec) {
 		// TODO Auto-generated method stub
-		return null;
+		return recursoDao.read(idrec);
 	}
 
 	@Override
 	public Map<String, Object> readAll() {
 		// TODO Auto-generated method stub
-		return null;
+		return recursoDao.readAll();
+	}
+
+	@Override
+	public Recursos rec_listarid(int idr) {
+		// TODO Auto-generated method stub
+		return recursoDao.rec_listarid(idr);
 	}
 
 }

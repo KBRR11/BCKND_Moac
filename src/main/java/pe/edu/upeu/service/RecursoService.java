@@ -10,4 +10,6 @@ public interface RecursoService {
 	public int delete(int idrec);
 	public Map<String,Object> read(int idrec);
 	public Map<String, Object> readAll();
+	public Recursos rec_listarid(int idr);
+	
 }
