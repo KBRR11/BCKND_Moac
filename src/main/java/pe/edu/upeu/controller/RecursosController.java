@@ -91,6 +91,7 @@ public class RecursosController {
 			}
 			recu.setRuta(nombreArchivo);
 			recu.setIdrecurso(idr);
+			recu.setNom_recurso(nombreArchivo);
 			recu.setTipo(tipo);
 			recursoService.update(recu);
 			response.put("vinculosrequisitos", recu);
@@ -159,6 +160,7 @@ public class RecursosController {
 			nombreArchivo = rec.getNom_recurso();
 			rutaArchivo = Paths.get(".//src//main//resources//file//convocatoria//").resolve(nombreArchivo).toAbsolutePath();
 			break;
+			
 		case 2:
 			rec=recursoService.listar2(id);
 			nombreArchivo = rec.getNom_recurso();
