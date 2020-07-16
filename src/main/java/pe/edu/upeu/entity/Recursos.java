@@ -1,5 +1,7 @@
 package pe.edu.upeu.entity;
 
+import java.util.Arrays;
+
 public class Recursos {
 	private int idrecurso;
 	private String nom_recurso;
@@ -9,8 +11,14 @@ public class Recursos {
 	private int idconvocatoria;
 	private int idconvenio;
 	private int idcambio;
-	
 
+	
+	@Override
+	public String toString() {
+		return "Recursos [idrecurso=" + idrecurso + ", nom_recurso=" + nom_recurso + ", ruta=" + ruta + ", tipo=" + tipo
+				+ ", iduniversidad=" + iduniversidad + ", idconvocatoria=" + idconvocatoria + ", idconvenio="
+				+ idconvenio + ", idcambio=" + idcambio+"]";
+	}
 
 	private byte[] data;
 	public Recursos(String nom_recurso, String ruta, int tipo, int iduniversidad, int idconvocatoria, int idconvenio,
@@ -34,7 +42,6 @@ public class Recursos {
 	}
 
 	public Recursos() {
-		super();
 		// TODO Auto-generated constructor stub
 	}
 	

@@ -40,9 +40,9 @@ public class RecursoServiceImp implements RecursoService{
 	}
 
 	@Override
-	public Map<String, Object> read(int idrec) {
+	public Recursos read(int id, int tipo) {
 		// TODO Auto-generated method stub
-		return recursoDao.read(idrec);
+		return recursoDao.read(id, tipo);
 	}
 
 	@Override
@@ -55,6 +55,24 @@ public class RecursoServiceImp implements RecursoService{
 	public Recursos rec_listarid(int idr) {
 		// TODO Auto-generated method stub
 		return recursoDao.rec_listarid(idr);
+	}
+
+	@Override
+	public Recursos listar1(int id) {
+		// TODO Auto-generated method stub
+		return recursoDao.listar1(id);
+	}
+
+	@Override
+	public Recursos listar2(int id) {
+		// TODO Auto-generated method stub
+		return recursoDao.listar2(id);
+	}
+
+	@Override
+	public Recursos listar3(int id) {
+		// TODO Auto-generated method stub
+		return recursoDao.listar3(id);
 	}
 
 }

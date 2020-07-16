@@ -273,7 +273,7 @@ public class UsuariosDaoImp implements UsuariosDao {
 	@Override
 	public Map<String, Object> listar(int id) {
 		// TODO Auto-generated method stub
-		simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate).withProcedureName("PR_LISTAR_USER_ID")
+		simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate).withProcedureName("PR_LISTAR_USER_COMPLETO")
 				.withCatalogName("PKG_CRUD_USUARIOS")
 				.declareParameters(new SqlOutParameter("LIST_USER", OracleTypes.CURSOR, new ColumnMapRowMapper()),
 						new SqlParameter("P_IDUSUARIO", Types.INTEGER));

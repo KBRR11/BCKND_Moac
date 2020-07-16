@@ -37,6 +37,7 @@ public class ConvocatoriaDaoImp implements ConvocatoriaDao{
 	@Override
 	public int delete(int idconv) {
 		// TODO Auto-generated method stub
+		System.out.println(idconv);
 		return jdbcTemplate.update("call PKG_CRUD_CONVOCATORIAS.PR_ELIMINAR_CONVOCATORIAS(?)",idconv);
 	}
 

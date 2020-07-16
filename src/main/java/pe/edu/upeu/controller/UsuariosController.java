@@ -17,7 +17,7 @@ import pe.edu.upeu.entity.Usuarios;
 import pe.edu.upeu.service.UsuariosService;
 
 
-//@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+
 @RestController
 @RequestMapping("/api")
 public class UsuariosController {
@@ -103,7 +103,7 @@ public class UsuariosController {
 		return usuariosService.activar_user(id);
 	}
 	
-	@Secured({"ROLE_ADMIN","ROLE_DIGETTI"})
+	@Secured({"ROLE_ADMIN","ROLE_DIGETTI","ROLE_STUDENT"})
 	@DeleteMapping("/delete/{id}")
 	public int delete(@PathVariable int id) {
 		return usuariosService.delete(id);

@@ -8,7 +8,11 @@ public interface RecursosDao {
 	public int create(Recursos rec);
 	public int update(Recursos rec);
 	public int delete(int idrec);
-	public Map<String,Object> read(int idrec);
+	public Recursos read(int id, int tipo);
 	public Map<String, Object> readAll();
 	public Recursos rec_listarid(int idr);
+	
+	public Recursos listar1(int id);
+	public Recursos listar2(int id);
+	public Recursos listar3(int id);
 }
