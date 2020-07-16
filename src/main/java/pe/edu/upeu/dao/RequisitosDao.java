@@ -10,4 +10,5 @@ public interface RequisitosDao {
 	public int delete(int idreq);
 	public Map<String,Object> read(int idreq);
 	public Map<String, Object> readAll();
+	public Map<String,Object> readConvenios(int idconve);
 }
