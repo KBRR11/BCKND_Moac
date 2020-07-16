@@ -255,9 +255,9 @@ public class UsuariosDaoImp implements UsuariosDao {
 	@Override
 	public int update_user(Usuarios users) {
 		// TODO Auto-generated method stub
-		return jdbcTemplate.update("call PKG_CRUD_USUARIOS.PR_MODIFICAR_USER(?,?,?,?,?,?,?,?)",
+		return jdbcTemplate.update("call PKG_CRUD_USUARIOS.PR_MODIFICAR_USER(?,?,?,?,?,?,?,?,?)",
 				users.getIdusuario(),users.getCodigo(),users.getUsuario(),new BCryptPasswordEncoder().encode((users.getPassword())),users.getSede(),
-				users.getTipo(),users.getIdep(), users.getCiclo());
+				users.getTipo(),users.getIdep(), users.getCiclo(), users.getIdrol());
 	}
 
 	@Override

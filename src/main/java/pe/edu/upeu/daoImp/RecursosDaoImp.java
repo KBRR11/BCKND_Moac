@@ -83,9 +83,8 @@ public class RecursosDaoImp implements RecursosDao{
 	@Override
 	public Recursos rec_listarid(int idr) {
 		// TODO Auto-generated method stub
-		String sql = "SELECT idrecurso,nom_recurso,ruta,tipo, DECODE(tipo,1,idconvienio" + 
-				",3,idconvocatoria" + 
-				",2,iduniversidad) idcambio FROM RECURSOS WHERE idrecurso=?";
+		String sql = "SELECT idrecurso,nom_recurso,ruta,tipo, DECODE(tipo,1,idconvocatoria , 2,idconvienio ,3,iduniversidad) idcambio \r\n" + 
+				"FROM RECURSOS WHERE idrecurso=?";
 		
 		Recursos recu = new Recursos();
 		recu=jdbcTemplate.queryForObject(sql, new Object[]{idr}, new BeanPropertyRowMapper<>(Recursos.class));
