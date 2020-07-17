@@ -33,7 +33,7 @@ public class UsuariosController {
 		return usuariosService.create_docente(users);
 	}
 	
-	@Secured({"ROLE_DIGETTI"})
+	@Secured({"ROLE_DIGETTI","ROLE_STUDENT"})
 	@PostMapping("/add_especial_user")
 	public int create_user_especial(@RequestBody Usuarios users) {
 		return usuariosService.create_user_especial(users);
@@ -170,7 +170,7 @@ public class UsuariosController {
 	@PostMapping("/add_user")
 	public int create_user(@RequestBody Usuarios users) {
 		return usuariosService.create_user(users);
-	}
+	}		
 	
 	@Secured({"ROLE_DIGETTI", "ROLE_STUDENT"})
 	@PutMapping("/update/{id}")
