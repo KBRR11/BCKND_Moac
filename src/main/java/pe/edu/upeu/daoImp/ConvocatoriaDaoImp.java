@@ -25,18 +25,19 @@ public class ConvocatoriaDaoImp implements ConvocatoriaDao{
 	@Override
 	public int create(Convocatoria conv) {
 		// TODO Auto-generated method stub
-		return jdbcTemplate.update("call PKG_CRUD_CONVOCATORIAS.PR_CREAR_CONVOCATORIAS(?,?,?,?)",conv.getNom_convocatoria(),conv.getInfo_convocatoria(),conv.getN_vancates(),conv.getCiclo_academico());
+		return jdbcTemplate.update("call PKG_CRUD_CONVOCATORIAS.PR_CREAR_CONVOCATORIAS(?,?,?,?)",conv.getNom_convocatoria(),conv.getInfo_convocatoria(),conv.getN_vacantes(),conv.getCiclo_academico());
 	}
 
 	@Override
 	public int update(Convocatoria conv) {
 		// TODO Auto-generated method stub
-		return jdbcTemplate.update("call PKG_CRUD_CONVOCATORIAS.PR_ACTUALIZAR_CONVOCATORIAS(?,?,?,?,?)",conv.getNom_convocatoria(),conv.getInfo_convocatoria(),conv.getN_vancates(),conv.getCiclo_academico(),conv.getIdconvocatoria());
+		return jdbcTemplate.update("call PKG_CRUD_CONVOCATORIAS.PR_ACTUALIZAR_CONVOCATORIAS(?,?,?,?,?)",conv.getNom_convocatoria(),conv.getInfo_convocatoria(),conv.getN_vacantes(),conv.getCiclo_academico(),conv.getIdconvocatoria());
 	}
 
 	@Override
 	public int delete(int idconv) {
 		// TODO Auto-generated method stub
+		System.out.println(idconv);
 		return jdbcTemplate.update("call PKG_CRUD_CONVOCATORIAS.PR_ELIMINAR_CONVOCATORIAS(?)",idconv);
 	}
 

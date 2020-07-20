@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +18,6 @@ import pe.edu.upeu.entity.Personas;
 import pe.edu.upeu.service.PersonasService;
 
 
-
 @RestController
 @RequestMapping("/api")
 public class PersonasController {
@@ -29,7 +29,7 @@ public class PersonasController {
 		return personasService.create(per);
 	}
 	
-	@Secured({"ROLE_ADMIN","ROLE_SECRETARY", "ROLE_STUDENT"})
+	@Secured({"ROLE_ADMIN","ROLE_SECRETARY","ROLE_STUDENT"})
 		@GetMapping("personas/")
 		public Map<String, Object> readAll() {
 			return personasService.readAll();
@@ -42,13 +42,13 @@ public class PersonasController {
 		per.setIdpersona(id);
 		return personasService.update(per);
 	}
-	@Secured({"ROLE_ADMIN"})
+	@Secured({"ROLE_ADMIN","ROLE_STUDENT"})
 	@DeleteMapping("personas/del/{id}")
 	public int delete(@PathVariable int id) {
 		return personasService.delete(id);
 	}
 	
-	@Secured({"ROLE_ADMIN","ROLE_SECRETARY"})
+	@Secured({"ROLE_ADMIN","ROLE_SECRETARY","ROLE_STUDENT"})
 	@GetMapping("personas/{id}")
 	public Map<String,Object> read(@PathVariable int id) {
 		return personasService.read(id);

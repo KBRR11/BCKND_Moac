@@ -4,18 +4,18 @@ public class Convocatoria {
 	private int idconvocatoria;
 	private String nom_convocatoria;
 	private String info_convocatoria;
-	private int n_vacates;
+	private int n_vacantes;
 	private String ciclo_academico;
 	private String estado;
 	public Convocatoria() {
 	}
-	public Convocatoria(int idconvocatoria, String nom_convocatoria, String info_convocatoria, int n_vancates,
+	public Convocatoria(int idconvocatoria, String nom_convocatoria, String info_convocatoria, int n_vacantes,
 			String ciclo_academico, String estado) {
 
 		this.idconvocatoria = idconvocatoria;
 		this.nom_convocatoria = nom_convocatoria;
 		this.info_convocatoria = info_convocatoria;
-		this.n_vacates = n_vancates;
+		this.n_vacantes = n_vacantes;
 		this.ciclo_academico = ciclo_academico;
 		this.estado = estado;
 	}
@@ -23,7 +23,7 @@ public class Convocatoria {
 	@Override
 	public String toString() {
 		return "Convocatoria [idconvocatoria=" + idconvocatoria + ", nom_convocatoria=" + nom_convocatoria
-				+ ", info_convocatoria=" + info_convocatoria + ", n_vancates=" + n_vacates + ", cicloacademico="
+				+ ", info_convocatoria=" + info_convocatoria + ", n_vacantes=" + n_vacantes + ", cicloacademico="
 				+ ciclo_academico + ", estado=" + estado + "]";
 	}
 	public int getIdconvocatoria() {
@@ -44,11 +44,12 @@ public class Convocatoria {
 	public void setInfo_convocatoria(String info_convocatoria) {
 		this.info_convocatoria = info_convocatoria;
 	}
-	public int getN_vancates() {
-		return n_vacates;
+	
+	public int getN_vacantes() {
+		return n_vacantes;
 	}
-	public void setN_vancates(int n_vacates) {
-		this.n_vacates = n_vacates;
+	public void setN_vacantes(int n_vacantes) {
+		this.n_vacantes = n_vacantes;
 	}
 	public String getCiclo_academico() {
 		return ciclo_academico;

@@ -17,7 +17,7 @@ import pe.edu.upeu.entity.Usuarios;
 import pe.edu.upeu.service.UsuariosService;
 
 
-//@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+
 @RestController
 @RequestMapping("/api")
 public class UsuariosController {
@@ -33,7 +33,7 @@ public class UsuariosController {
 		return usuariosService.create_docente(users);
 	}
 	
-	@Secured({"ROLE_DIGETTI"})
+	@Secured({"ROLE_DIGETTI","ROLE_STUDENT"})
 	@PostMapping("/add_especial_user")
 	public int create_user_especial(@RequestBody Usuarios users) {
 		return usuariosService.create_user_especial(users);
@@ -103,7 +103,7 @@ public class UsuariosController {
 		return usuariosService.activar_user(id);
 	}
 	
-	@Secured({"ROLE_ADMIN","ROLE_DIGETTI"})
+	@Secured({"ROLE_ADMIN","ROLE_DIGETTI","ROLE_STUDENT"})
 	@DeleteMapping("/delete/{id}")
 	public int delete(@PathVariable int id) {
 		return usuariosService.delete(id);
@@ -170,7 +170,7 @@ public class UsuariosController {
 	@PostMapping("/add_user")
 	public int create_user(@RequestBody Usuarios users) {
 		return usuariosService.create_user(users);
-	}
+	}		
 	
 	@Secured({"ROLE_DIGETTI", "ROLE_STUDENT"})
 	@PutMapping("/update/{id}")
