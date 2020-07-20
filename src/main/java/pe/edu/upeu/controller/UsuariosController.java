@@ -70,9 +70,9 @@ public class UsuariosController {
 		return usuariosService.update_nomUser(usuario);
 	}
 	
-	@Secured({"ROLE_ADMIN","ROLE_SECRETARY","ROLE_STUDENT","ROLE_TEACHER"})
+	@Secured({"ROLE_ADMIN","ROLE_SECRETARY","ROLE_STUDENT","ROLE_TEACHER","ROLE_DIGETTI"})
 	@PutMapping("/upd/password/{id}")
-	public int update_password(@RequestBody Usuarios password, @PathVariable int id) {
+	public int update_password(@RequestBody Usuarios password , @PathVariable int id) {
 		password.setIdusuario(id);
 		return usuariosService.update_password(password);
 	}
@@ -185,7 +185,7 @@ public class UsuariosController {
 		return usuariosService.listarTodo();
 
     }
-	@Secured({"ROLE_STUDENT"})
+	@Secured({"ROLE_SECRETARY","ROLE_TEACHER", "ROLE_ADMIN", "ROLE_STUDENT" , "ROLE_DIGETTI"})
 	@GetMapping("/listar/{id}")
 	public Map<String,Object> listar(@PathVariable int id) {
 		return usuariosService.listar(id);

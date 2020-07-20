@@ -86,6 +86,14 @@ public Usuarios(int idusuario, String color_fondo, String color_menu) {
 	this.color_menu = color_menu;
 }
 
+
+
+public Usuarios(int idusuario, String password) {
+	super();
+	this.idusuario = idusuario;
+	this.password = password;
+}
+
 public int getIdusuario() {
 	return idusuario;
 }

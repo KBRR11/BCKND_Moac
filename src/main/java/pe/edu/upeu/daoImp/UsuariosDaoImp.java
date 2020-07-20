@@ -100,7 +100,7 @@ public class UsuariosDaoImp implements UsuariosDao {
 	public int update_password(Usuarios password) {
 		// TODO Auto-generated method stub
 		return jdbcTemplate.update("call PKG_CRUD_USUARIOS.PR_ACTUALIZAR_PASSWORD(?,?)", password.getIdusuario(),
-			new BCryptPasswordEncoder().encode(password.getUsuario()));
+			new BCryptPasswordEncoder().encode(password.getPassword()));
 	}
 
 	@Override
