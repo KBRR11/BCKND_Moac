@@ -65,6 +65,11 @@ public class RecursosController {
 			case 3:
 				nombreArchivo = UUID.randomUUID().toString()+"_"+archivo.getOriginalFilename().replace(" ", "");
 				rutaArchivo = Paths.get(".//src//main//resources//file//universidad//").resolve(nombreArchivo).toAbsolutePath();
+				break;
+			case 4:
+				nombreArchivo = UUID.randomUUID().toString()+"_"+archivo.getOriginalFilename().replace(" ", "");
+				rutaArchivo = Paths.get(".//src//main//resources//file//requisito//").resolve(nombreArchivo).toAbsolutePath();
+				break;
 			default:
 				break;
 			}
@@ -121,6 +126,11 @@ public class RecursosController {
 			case 3:
 				nombreArchivo = UUID.randomUUID().toString()+"_"+archivo.getOriginalFilename().replace(" ", "");
 				rutaArchivo = Paths.get(".//src//main//resources//file//universidad//").resolve(nombreArchivo).toAbsolutePath();
+				break;
+			case 4:
+				nombreArchivo = UUID.randomUUID().toString()+"_"+archivo.getOriginalFilename().replace(" ", "");
+				rutaArchivo = Paths.get(".//src//main//resources//file//requisito//").resolve(nombreArchivo).toAbsolutePath();
+				break;
 			default:
 				break;
 			}
@@ -170,6 +180,12 @@ public class RecursosController {
 			rec=recursoService.listar3(id);
 			nombreArchivo = rec.getNom_recurso();
 			rutaArchivo = Paths.get(".//src//main//resources//file//universidad//").resolve(nombreArchivo).toAbsolutePath();
+			break;
+		case 4:
+			rec=recursoService.listar4(id);
+			nombreArchivo = rec.getNom_recurso();
+			rutaArchivo = Paths.get(".//src//main//resources//file//requisito//").resolve(nombreArchivo).toAbsolutePath();
+			break;
 		default:
 			break;
 		}

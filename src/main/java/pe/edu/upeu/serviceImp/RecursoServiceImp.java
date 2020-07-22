@@ -75,4 +75,10 @@ public class RecursoServiceImp implements RecursoService{
 		return recursoDao.listar3(id);
 	}
 
+	@Override
+	public Recursos listar4(int id) {
+		// TODO Auto-generated method stub
+		return recursoDao.listar4(id);
+	}
+
 }
