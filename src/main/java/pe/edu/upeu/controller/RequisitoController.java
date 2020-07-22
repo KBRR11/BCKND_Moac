@@ -58,8 +58,8 @@ public class RequisitoController {
 	}
 	
 	@Secured({"ROLE_STUDENT"})
-	@GetMapping("/requisitos/convenio/{idconve}")
-	public Map<String,Object> readConvenio(@PathVariable int idconve) {
-		return requisitosService.readConvenios(idconve);
+	@GetMapping("/requisitos/convenio/{idconve}/{ide}")
+	public Map<String,Object> readConvenio(@PathVariable int idconve,@PathVariable int ide) {
+		return requisitosService.readConvenios(idconve,ide);
 	}
 }
