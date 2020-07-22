@@ -49,7 +49,7 @@ public class ConvenioController {
 		return convenioService.delete(id);
 	}
 	
-	@Secured({"ROLE_ADMIN","ROLE_SECRETARY,ROLE_STUDENT"})
+	@Secured({"ROLE_ADMIN","ROLE_SECRETARY","ROLE_STUDENT"})
 	@GetMapping("convenios/{id}")
 	public Map<String,Object> read(@PathVariable int id) {
 		return convenioService.read(id);
