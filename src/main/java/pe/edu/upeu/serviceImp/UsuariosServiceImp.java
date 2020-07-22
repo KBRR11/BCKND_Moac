@@ -38,9 +38,15 @@ public class UsuariosServiceImp implements UsuariosService {
 	}
 
 	@Override
-	public Map<String, Object> readAll_Pending() {
+	public Map<String, Object> readAll_Pending_Est() {
 		// TODO Auto-generated method stub
-		return usuariosDao.readAll_Pending();
+		return usuariosDao.readAll_Pending_Est();
+	}
+	
+	@Override
+	public Map<String, Object> readAll_Pending_Doc() {
+		// TODO Auto-generated method stub
+		return usuariosDao.readAll_Pending_Doc();
 	}
 
 	@Override
@@ -171,6 +177,12 @@ public class UsuariosServiceImp implements UsuariosService {
 	public Map<String, Object> listar(int id) {
 		// TODO Auto-generated method stub
 		return usuariosDao.listar(id);
+	}
+
+	@Override
+	public Map<String, Object> listar_datosPersona(int id) {
+		// TODO Auto-generated method stub
+		return usuariosDao.listar_datosPersona(id);
 	}
 
 }

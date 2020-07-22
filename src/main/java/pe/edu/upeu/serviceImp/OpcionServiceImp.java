@@ -43,4 +43,10 @@ public class OpcionServiceImp implements OpcionService{
 		return opcionDao.readAll();
 	}
 
+	@Override
+	public Map<String, Object> cargarOpciones(String nom_rol) {
+		// TODO Auto-generated method stub
+		return opcionDao.cargarOpciones(nom_rol);
+	}
+
 }

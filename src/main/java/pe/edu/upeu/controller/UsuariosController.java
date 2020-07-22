@@ -46,9 +46,15 @@ public class UsuariosController {
 	}
 	
 	@Secured({"ROLE_ADMIN","ROLE_SECRETARY"})
-	@GetMapping("/all_pending")
-	public Map<String, Object> readAll_Pending() {
-		return usuariosService.readAll_Pending();
+	@GetMapping("/all_pending_Est")
+	public Map<String, Object> readAll_Pending_Est() {
+		return usuariosService.readAll_Pending_Est();
+	}
+	
+	@Secured({"ROLE_ADMIN","ROLE_SECRETARY"})
+	@GetMapping("/all_pending_Doc")
+	public Map<String, Object> readAll_Pending_Doc() {
+		return usuariosService.readAll_Pending_Doc();
 	}
 	
 	@Secured({"ROLE_ADMIN","ROLE_SECRETARY"})
@@ -104,7 +110,7 @@ public class UsuariosController {
 	}
 	
 	@Secured({"ROLE_ADMIN","ROLE_DIGETTI","ROLE_STUDENT"})
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/delete_user/{id}")
 	public int delete(@PathVariable int id) {
 		return usuariosService.delete(id);
 	}
@@ -173,7 +179,7 @@ public class UsuariosController {
 	}		
 	
 	@Secured({"ROLE_DIGETTI", "ROLE_STUDENT"})
-	@PutMapping("/update/{id}")
+	@PutMapping("/update_user/{id}")
 	public int update_user(@RequestBody Usuarios users, @PathVariable int id) {
 		users.setIdusuario(id);
 		return usuariosService.update_user(users);
@@ -189,5 +195,11 @@ public class UsuariosController {
 	@GetMapping("/listar/{id}")
 	public Map<String,Object> listar(@PathVariable int id) {
 		return usuariosService.listar(id);
+	}
+	
+	@Secured({"ROLE_SECRETARY","ROLE_TEACHER", "ROLE_ADMIN", "ROLE_STUDENT" , "ROLE_DIGETTI"})
+	@GetMapping("/listarDatosPersona/{id}")
+	public Map<String,Object> listarDatosPersona(@PathVariable int id) {
+		return usuariosService.listar_datosPersona(id);
 	}
 }
