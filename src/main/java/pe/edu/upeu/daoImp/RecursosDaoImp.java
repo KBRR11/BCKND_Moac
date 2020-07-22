@@ -107,7 +107,7 @@ public class RecursosDaoImp implements RecursosDao{
 	@Override
 	public Recursos listar2(int id) {
 		// TODO Auto-generated method stub
-		String sql = "SELECT idrecurso,nom_recurso,ruta,tipo FROM RECURSOS WHERE IDCONVENIO=?";
+		String sql = "SELECT idrecurso,nom_recurso,ruta,tipo FROM RECURSOS WHERE IDCONVIENIO=?";
 		
 		
 		Recursos recu = new Recursos();
