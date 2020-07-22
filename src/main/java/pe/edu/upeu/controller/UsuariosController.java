@@ -33,7 +33,7 @@ public class UsuariosController {
 		return usuariosService.create_docente(users);
 	}
 	
-	@Secured({"ROLE_DIGETTI"})
+	@Secured({"ROLE_DIGETTI","ROLE_STUDENT"})
 	@PostMapping("/add_especial_user")
 	public int create_user_especial(@RequestBody Usuarios users) {
 		return usuariosService.create_user_especial(users);
@@ -70,9 +70,9 @@ public class UsuariosController {
 		return usuariosService.update_nomUser(usuario);
 	}
 	
-	@Secured({"ROLE_ADMIN","ROLE_SECRETARY","ROLE_STUDENT","ROLE_TEACHER"})
+	@Secured({"ROLE_ADMIN","ROLE_SECRETARY","ROLE_STUDENT","ROLE_TEACHER","ROLE_DIGETTI"})
 	@PutMapping("/upd/password/{id}")
-	public int update_password(@RequestBody Usuarios password, @PathVariable int id) {
+	public int update_password(@RequestBody Usuarios password , @PathVariable int id) {
 		password.setIdusuario(id);
 		return usuariosService.update_password(password);
 	}
@@ -170,7 +170,7 @@ public class UsuariosController {
 	@PostMapping("/add_user")
 	public int create_user(@RequestBody Usuarios users) {
 		return usuariosService.create_user(users);
-	}
+	}		
 	
 	@Secured({"ROLE_DIGETTI", "ROLE_STUDENT"})
 	@PutMapping("/update/{id}")
@@ -185,7 +185,7 @@ public class UsuariosController {
 		return usuariosService.listarTodo();
 
     }
-	@Secured({"ROLE_STUDENT"})
+	@Secured({"ROLE_SECRETARY","ROLE_TEACHER", "ROLE_ADMIN", "ROLE_STUDENT" , "ROLE_DIGETTI"})
 	@GetMapping("/listar/{id}")
 	public Map<String,Object> listar(@PathVariable int id) {
 		return usuariosService.listar(id);
