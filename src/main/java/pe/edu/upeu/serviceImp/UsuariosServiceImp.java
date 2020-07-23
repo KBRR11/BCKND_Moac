@@ -174,6 +174,12 @@ public class UsuariosServiceImp implements UsuariosService {
 		// TODO Auto-generated method stub
 		return usuariosDao.listar_datosPersona(id);
 	}
+	@Override
+	public Usuarios listar_foto(int id) {
+		// TODO Auto-generated method stub
+		return usuariosDao.listar_foto(id);
+
+	}
 
 	
 

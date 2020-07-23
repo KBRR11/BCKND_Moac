@@ -15,6 +15,7 @@ private String n_documento;
 private int idrol;
 private String color_fondo;
 private String color_menu;
+private String foto;
 
 public Usuarios() {
 	super();
@@ -35,6 +36,7 @@ public Usuarios(int idusuario, String codigo, String usuario, String password, i
 	this.idep = idep;
 	this.ciclo = ciclo;
 }
+
 ///PARA ESTUDIANTES Y DOCENTES
 public Usuarios(String codigo, String usuario, String password, int sede, int tipo, int estado, int idep, String ciclo,
 		String n_documento) {
@@ -204,6 +206,14 @@ public String getColor_menu() {
 
 public void setColor_menu(String color_menu) {
 	this.color_menu = color_menu;
+}
+
+public String getFoto() {
+	return foto;
+}
+
+public void setFoto(String foto) {
+	this.foto = foto;
 }
 
 
