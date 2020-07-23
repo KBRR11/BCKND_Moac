@@ -102,17 +102,7 @@ public class UsuariosServiceImp implements UsuariosService {
 		return usuariosDao.delete(id);
 	}
 
-	@Override
-	public Map<String, Object> readName(String nameUser) {
-		// TODO Auto-generated method stub
-		return usuariosDao.readName(nameUser);
-	}
-
-	@Override
-	public Map<String, Object> readCodigo(String codigo) {
-		// TODO Auto-generated method stub
-		return usuariosDao.readCodigo(codigo);
-	}
+	
 
 	@Override
 	public Map<String, Object> contadorUsers_Active() {
@@ -184,5 +174,7 @@ public class UsuariosServiceImp implements UsuariosService {
 		// TODO Auto-generated method stub
 		return usuariosDao.listar_datosPersona(id);
 	}
+
+	
 
 }

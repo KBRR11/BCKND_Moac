@@ -20,8 +20,6 @@ public interface UsuariosService {
 	public int desactivar_user(int id);
 	public int activar_user(int id);
 	public int delete(int id);
-	public Map<String,Object> readName(String nameUser);
-	public Map<String,Object> readCodigo(String codigo);
 	public Map<String, Object> contadorUsers_Active();
 	public Map<String, Object> contadorEstudents_Active();
 	public Map<String, Object> contadorTeachers_Active();

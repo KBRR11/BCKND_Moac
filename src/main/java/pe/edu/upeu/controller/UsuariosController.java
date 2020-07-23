@@ -109,22 +109,10 @@ public class UsuariosController {
 		return usuariosService.activar_user(id);
 	}
 	
-	@Secured({"ROLE_ADMIN","ROLE_DIGETTI","ROLE_STUDENT"})
+	@Secured({"ROLE_ADMIN","ROLE_DIGETTI","ROLE_SECRETARY"})
 	@DeleteMapping("/delete_user/{id}")
 	public int delete(@PathVariable int id) {
 		return usuariosService.delete(id);
-	}
-	
-	@Secured({"ROLE_ADMIN","ROLE_SECRETARY"})
-	@GetMapping("/read_name/{nameUser}")
-	public Map<String,Object> readName(@PathVariable String nameUser) {		
-		return usuariosService.readName(nameUser);
-	}
-	
-	@Secured({"ROLE_ADMIN","ROLE_SECRETARY"})
-	@GetMapping("/read_code/{codigo}")
-	public Map<String,Object> readCodigo(@PathVariable String codigo) {		
-		return usuariosService.readCodigo(codigo);
 	}
 	
 	@Secured({"ROLE_ADMIN","ROLE_SECRETARY"})
