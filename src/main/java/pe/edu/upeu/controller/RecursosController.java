@@ -198,7 +198,7 @@ public class RecursosController {
 		}
 		
 		if(!recurso.exists() && !recurso.isReadable()) {
-			throw new RuntimeException("Error imbecil :" + nombreArchivo);
+			throw new RuntimeException("Error :" + nombreArchivo);
 		}
 		HttpHeaders cabecera = new HttpHeaders();
 		cabecera.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"");

@@ -173,4 +173,10 @@ public class UsuariosServiceImp implements UsuariosService {
 		return usuariosDao.listar(id);
 	}
 
+	@Override
+	public Usuarios listar_foto(int id) {
+		// TODO Auto-generated method stub
+		return usuariosDao.listar_foto(id);
+	}
+
 }

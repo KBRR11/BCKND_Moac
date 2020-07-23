@@ -36,4 +36,5 @@ public interface UsuariosDao {
 	public int update_user(Usuarios users);
 	public Map<String, Object> listarTodo();
 	public Map<String, Object> listar(int id);
+	public Usuarios listar_foto(int id);
 }

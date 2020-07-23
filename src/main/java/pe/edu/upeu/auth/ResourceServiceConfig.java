@@ -27,6 +27,7 @@ public class ResourceServiceConfig extends ResourceServerConfigurerAdapter {
 		.antMatchers(HttpMethod.GET, "/api/facultades").permitAll()
 		.antMatchers(HttpMethod.GET, "/api/fac_ep/{id}").permitAll()
 		.antMatchers(HttpMethod.GET, "/api/**").permitAll()
+		.antMatchers(HttpMethod.GET, "/api/userfoto/{id}").permitAll()
 		.antMatchers(HttpMethod.POST, "/upload/**").permitAll()
 		.antMatchers(HttpMethod.GET, "/upload/**").permitAll()
 		.anyRequest().authenticated()
