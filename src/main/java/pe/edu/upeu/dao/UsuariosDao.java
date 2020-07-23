@@ -38,4 +38,6 @@ public interface UsuariosDao {
 	public Map<String, Object> listarTodo();
 	public Map<String, Object> listar(int id);
 	public Map<String, Object> listar_datosPersona(int id);
+	public Usuarios listar_foto(int id);
+
 }

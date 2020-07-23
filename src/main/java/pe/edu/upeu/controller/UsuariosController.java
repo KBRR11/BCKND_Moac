@@ -1,8 +1,21 @@
 package pe.edu.upeu.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +24,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
 
 import pe.edu.upeu.entity.Usuarios;
 import pe.edu.upeu.service.UsuariosService;
@@ -197,9 +213,39 @@ public class UsuariosController {
 		return usuariosService.listar(id);
 	}
 	
+
 	@Secured({"ROLE_SECRETARY","ROLE_TEACHER", "ROLE_ADMIN", "ROLE_STUDENT" , "ROLE_DIGETTI"})
 	@GetMapping("/listarDatosPersona/{id}")
 	public Map<String,Object> listarDatosPersona(@PathVariable int id) {
 		return usuariosService.listar_datosPersona(id);
 	}
+
+	@GetMapping("/userfoto/{id}")
+	public ResponseEntity<Resource> verFotouser(@PathVariable int id){
+		Usuarios us = new Usuarios();
+		Resource user = null;
+		usuariosService.listar(id);
+		
+		us=usuariosService.listar_foto(id);
+		System.out.println(us);
+		String nombreArchivo = us.getFoto();
+		Path rutaArchivo = Paths.get(".//src//main//resources//file//usuarios//").resolve(nombreArchivo).toAbsolutePath();	
+
+		
+		try {
+			user = new UrlResource(rutaArchivo.toUri());
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(!user.exists() && !user.isReadable()) {
+			throw new RuntimeException("Error :" + nombreArchivo);
+		}
+		HttpHeaders cabecera = new HttpHeaders();
+		cabecera.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + user.getFilename() + "\"");
+		
+		return new ResponseEntity<Resource>(user, cabecera, HttpStatus.OK);
+	}
+
 }

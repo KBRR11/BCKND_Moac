@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import oracle.jdbc.OracleTypes;
 import pe.edu.upeu.dao.UsuariosDao;
+import pe.edu.upeu.entity.Recursos;
 import pe.edu.upeu.entity.Usuarios;
 
 @Repository
@@ -289,6 +290,17 @@ public class UsuariosDaoImp implements UsuariosDao {
 						new SqlParameter("P_IDUSUARIO", Types.INTEGER));
 		SqlParameterSource in = new MapSqlParameterSource().addValue("P_IDUSUARIO", id);
 		return simpleJdbcCall.execute(in);
+	}
+	@Override
+	public Usuarios listar_foto(int id) {
+		// TODO Auto-generated method stub
+		String sql = "SELECT idusuario,usuario,sede,foto FROM USUARIOS WHERE IDUSUARIO=?";
+		
+		Usuarios us = new Usuarios();
+		us=jdbcTemplate.queryForObject(sql, new Object[]{id}, new BeanPropertyRowMapper<>(Usuarios.class));
+		us.toString();
+		System.out.println(us);
+		return us;
 	}
 
 	@Override
