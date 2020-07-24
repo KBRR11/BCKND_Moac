@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-
+import pe.edu.upeu.entity.Recursos;
 import pe.edu.upeu.entity.Usuarios;
 import pe.edu.upeu.service.UsuariosService;
 
@@ -215,7 +215,7 @@ public class UsuariosController {
 		usuariosService.listar(id);
 		
 		us=usuariosService.listar_foto(id);
-		System.out.println(us);
+		//System.out.println(us);
 		String nombreArchivo = us.getFoto();
 		Path rutaArchivo = Paths.get(".//src//main//resources//file//usuarios//").resolve(nombreArchivo).toAbsolutePath();	
 
@@ -235,5 +235,49 @@ public class UsuariosController {
 		
 		return new ResponseEntity<Resource>(user, cabecera, HttpStatus.OK);
 	}
+	
+	@PostMapping("/subirfoto")
+	public ResponseEntity<?> updtefoto(@RequestParam("archivo") MultipartFile archivo, @RequestParam("id") int id){
+	Map<String, Object> response = new HashMap<>();
+	//System.out.println(id+" es el puto id");
+	Path rutaArchivo = null;
+	String nombreArchivo = null; 
+	Usuarios u = new Usuarios();
+	u = usuariosService.listar_foto(id);
+	System.out.println(u.getFoto());
+	if(!archivo.isEmpty()) {
+		
+			nombreArchivo = UUID.randomUUID().toString()+"_"+archivo.getOriginalFilename().replace(" ", "");
+			rutaArchivo = Paths.get(".//src//main//resources//file//usuarios//").resolve(nombreArchivo).toAbsolutePath();
+		
+		}
+		
+		
+		try {
+			
+			Files.copy(archivo.getInputStream(), rutaArchivo);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			response.put("mensaje", "Error al subir la imagen : " +nombreArchivo);
+			response.put("error", e.getMessage().concat(":").concat(e.getCause().getMessage()));
+			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		String nombrefotoanterior = u.getFoto();
+				
+			
+		
+		if (nombrefotoanterior != null || nombrefotoanterior.length() >0) {
+			Path rutaFotoAnterior = Paths.get(".//src//main//resources//file//usuarios//").resolve(nombrefotoanterior).toAbsolutePath();
+			File archivoanterior = rutaFotoAnterior.toFile();
+			if (archivoanterior.exists() && archivoanterior.canRead()) {
+				archivoanterior.delete();
+			}
+		}
+		usuariosService.UpdateFoto(id, nombreArchivo);
+	return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+	
+}
+	
 
 }

@@ -35,5 +35,6 @@ public interface UsuariosService {
 
 	public Map<String, Object> listar_datosPersona(int id);
 	public Usuarios listar_foto(int id);
+	public int UpdateFoto(int id, String foto);
 
 }

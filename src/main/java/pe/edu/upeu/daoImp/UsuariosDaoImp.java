@@ -292,4 +292,10 @@ public class UsuariosDaoImp implements UsuariosDao {
 		return simpleJdbcCall.execute(in);
 	}
 
+	@Override
+	public int UpdateFoto(int id, String foto) {
+		return jdbcTemplate.update("call PKG_CRUD_USUARIOS.PR_MODIFICAR_FOTO(?,?)",
+				id,foto);
+	}
+
 }

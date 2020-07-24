@@ -181,6 +181,12 @@ public class UsuariosServiceImp implements UsuariosService {
 
 	}
 
+	@Override
+	public int UpdateFoto(int id, String foto) {
+		// TODO Auto-generated method stub
+		return usuariosDao.UpdateFoto(id, foto);
+	}
+
 	
 
 }
