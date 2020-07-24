@@ -55,7 +55,7 @@ public class ConvenioController {
 		return convenioService.read(id);
 	}
 	@Secured({"ROLE_STUDENT"})
-	@DeleteMapping("convenios/{idconv}/{idusu}")
+	@GetMapping("convenios/{idconv}/{idusu}")
 	public Map<String, Object> validar(@PathVariable int idconv,@PathVariable int idusu) {
 		return convenioService.validador(idconv, idusu);
 	}
