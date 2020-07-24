@@ -49,5 +49,10 @@ public class ConvenioServiceImp implements ConvenioService{
 		// TODO Auto-generated method stub
 		return convenioDao.validador(idconvenio, idusuarui);
 	}
+	@Override
+	public Map<String, Object> listarcursores(int id) {
+		// TODO Auto-generated method stub
+		return convenioDao.listarcursores(id);
+	}
 
 }
