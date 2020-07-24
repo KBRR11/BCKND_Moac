@@ -61,12 +61,12 @@ public class RequisitosDaoImp implements RequisitosDao{
 	}
 	
 	@Override
-	public Map<String, Object> readConvenios(int idconve) {
+	public Map<String, Object> readConvenios(int idconve, int ide) {
 		// TODO Auto-generated method stub
 		simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
 				.withProcedureName("PR_BUSCAR_REQCONVE").withCatalogName("PKG_CRUD_REQUISITOS")
-				.declareParameters(new SqlOutParameter("REQCONVE",OracleTypes.CURSOR,new ColumnMapRowMapper()), new SqlParameter("P_IDREQUICONV", Types.INTEGER)); 
-		SqlParameterSource in = new MapSqlParameterSource().addValue("P_IDREQUICONV", idconve);
+				.declareParameters(new SqlOutParameter("REQCONVE",OracleTypes.CURSOR,new ColumnMapRowMapper()), new SqlParameter("P_IDREQUICONV", Types.INTEGER),new SqlParameter("P_ESTADO", Types.INTEGER)); 
+		SqlParameterSource in = new MapSqlParameterSource().addValue("P_IDREQUICONV", idconve).addValue("P_ESTADO", ide);
 		return  simpleJdbcCall.execute(in);
 	}
 }

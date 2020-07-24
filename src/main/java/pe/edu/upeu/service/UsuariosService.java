@@ -9,7 +9,8 @@ public interface UsuariosService {
 	public int create_docente(Usuarios users);
 	public int create_user_especial(Usuarios users);
 	public Map<String, Object> readAll_Active();
-	public Map<String, Object> readAll_Pending();
+	public Map<String, Object> readAll_Pending_Est();
+	public Map<String, Object> readAll_Pending_Doc();
 	public Map<String, Object> readAll_Students();
 	public Map<String, Object> readAll_Teachers();
 	public int update_nomUser(Usuarios usuario);
@@ -19,8 +20,6 @@ public interface UsuariosService {
 	public int desactivar_user(int id);
 	public int activar_user(int id);
 	public int delete(int id);
-	public Map<String,Object> readName(String nameUser);
-	public Map<String,Object> readCodigo(String codigo);
 	public Map<String, Object> contadorUsers_Active();
 	public Map<String, Object> contadorEstudents_Active();
 	public Map<String, Object> contadorTeachers_Active();
@@ -33,4 +32,9 @@ public interface UsuariosService {
 	public int update_user(Usuarios users);
 	public Map<String, Object> listarTodo();
 	public Map<String, Object> listar(int id);
+
+	public Map<String, Object> listar_datosPersona(int id);
+	public Usuarios listar_foto(int id);
+	public int UpdateFoto(int id, String foto);
+
 }

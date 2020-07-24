@@ -38,9 +38,15 @@ public class UsuariosServiceImp implements UsuariosService {
 	}
 
 	@Override
-	public Map<String, Object> readAll_Pending() {
+	public Map<String, Object> readAll_Pending_Est() {
 		// TODO Auto-generated method stub
-		return usuariosDao.readAll_Pending();
+		return usuariosDao.readAll_Pending_Est();
+	}
+	
+	@Override
+	public Map<String, Object> readAll_Pending_Doc() {
+		// TODO Auto-generated method stub
+		return usuariosDao.readAll_Pending_Doc();
 	}
 
 	@Override
@@ -96,17 +102,7 @@ public class UsuariosServiceImp implements UsuariosService {
 		return usuariosDao.delete(id);
 	}
 
-	@Override
-	public Map<String, Object> readName(String nameUser) {
-		// TODO Auto-generated method stub
-		return usuariosDao.readName(nameUser);
-	}
-
-	@Override
-	public Map<String, Object> readCodigo(String codigo) {
-		// TODO Auto-generated method stub
-		return usuariosDao.readCodigo(codigo);
-	}
+	
 
 	@Override
 	public Map<String, Object> contadorUsers_Active() {
@@ -172,5 +168,25 @@ public class UsuariosServiceImp implements UsuariosService {
 		// TODO Auto-generated method stub
 		return usuariosDao.listar(id);
 	}
+
+	@Override
+	public Map<String, Object> listar_datosPersona(int id) {
+		// TODO Auto-generated method stub
+		return usuariosDao.listar_datosPersona(id);
+	}
+	@Override
+	public Usuarios listar_foto(int id) {
+		// TODO Auto-generated method stub
+		return usuariosDao.listar_foto(id);
+
+	}
+
+	@Override
+	public int UpdateFoto(int id, String foto) {
+		// TODO Auto-generated method stub
+		return usuariosDao.UpdateFoto(id, foto);
+	}
+
+	
 
 }

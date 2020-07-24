@@ -44,10 +44,11 @@ public class Convocatoria {
 	public void setInfo_convocatoria(String info_convocatoria) {
 		this.info_convocatoria = info_convocatoria;
 	}
-	public int getN_vancates() {
+	
+	public int getN_vacantes() {
 		return n_vacantes;
 	}
-	public void setN_vancates(int n_vacantes) {
+	public void setN_vacantes(int n_vacantes) {
 		this.n_vacantes = n_vacantes;
 	}
 	public String getCiclo_academico() {

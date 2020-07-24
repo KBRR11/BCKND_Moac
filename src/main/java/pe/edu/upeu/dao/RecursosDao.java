@@ -15,4 +15,5 @@ public interface RecursosDao {
 	public Recursos listar1(int id);
 	public Recursos listar2(int id);
 	public Recursos listar3(int id);
+	public Recursos listar4(int id);
 }
