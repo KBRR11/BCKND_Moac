@@ -11,4 +11,5 @@ public interface ConveniosDao {
 	public int delete(int idc);
 	public Map<String,Object> read(int id);
 	public Map<String, Object> readAll();
+	public Map<String,Object> validador(int idconvenio,int idusuarui);
 }

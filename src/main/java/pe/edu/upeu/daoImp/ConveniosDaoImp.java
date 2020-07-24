@@ -52,4 +52,15 @@ public class ConveniosDaoImp implements ConveniosDao{
 				.declareParameters(new SqlOutParameter("LIST_CONVENIOS", OracleTypes.CURSOR, new ColumnMapRowMapper()));
 		return simpleJdbcCall.execute();
 	}
+	@Override
+	public Map<String, Object> validador(int idconvenio, int idusuarui) {
+		simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("PR_VALIDAR").withCatalogName("PKG_CRUD_CONVENIOS")
+				.declareParameters(new SqlOutParameter("RESPUESTA",OracleTypes.VARCHAR),
+						new SqlParameter("P_IDCONVENIO", Types.INTEGER),
+						new SqlParameter("P_IDUSUARIO", Types.INTEGER)); 
+		SqlParameterSource in = new MapSqlParameterSource().addValue("P_IDCONVENIO", idconvenio)
+														   .addValue("P_IDUSUARIO", idusuarui);
+		return  simpleJdbcCall.execute(in);
+	}
 }
