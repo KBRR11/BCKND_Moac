@@ -25,13 +25,13 @@ public class RequisitosDaoImp implements RequisitosDao{
 	@Override
 	public int create(Requisitos req) {
 		// TODO Auto-generated method stub
-		return jdbcTemplate.update("call PKG_CRUD_REQUISITOS.PR_CREAR_REQUISITOS(?,?)",req.getNombre(),req.getIdconvenio());
+		return jdbcTemplate.update("call PKG_CRUD_REQUISITOS.PR_CREAR_REQUISITOS(?)",req.getNombre());
 	}
 
 	@Override
 	public int update(Requisitos req) {
 		// TODO Auto-generated method stub
-		return jdbcTemplate.update("call PKG_CRUD_REQUISITOS.PR_ACTUALIZAR_REQUISITOS(?,?,?)",req.getNombre(),req.getIdconvenio(),req.getIdrequisito());
+		return jdbcTemplate.update("call PKG_CRUD_REQUISITOS.PR_ACTUALIZAR_REQUISITOS(?,?)",req.getNombre(),req.getIdrequisito());
 	}
 
 	@Override
