@@ -54,4 +54,10 @@ public class ConvenioController {
 	public Map<String,Object> read(@PathVariable int id) {
 		return convenioService.read(id);
 	}
+	
+	@Secured({"ROLE_ADMIN","ROLE_SECRETARY","ROLE_STUDENT"})
+	@GetMapping("convenios/cursor/{id}")
+	public Map<String,Object> listarcursor(@PathVariable int id) {
+		return convenioService.listarcursores(id);
+	}
 }

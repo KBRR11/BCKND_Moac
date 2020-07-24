@@ -26,14 +26,10 @@ public class ResourceServiceConfig extends ResourceServerConfigurerAdapter {
 		.antMatchers(HttpMethod.POST, "/api/add_teacher").permitAll()
 		.antMatchers(HttpMethod.GET, "/api/facultades").permitAll()
 		.antMatchers(HttpMethod.GET, "/api/fac_ep/{id}").permitAll()
-<<<<<<< HEAD
-		//.antMatchers(HttpMethod.GET, "/api/**").permitAll()
-=======
-		.antMatchers(HttpMethod.GET, "/api/**").permitAll()
 		.antMatchers(HttpMethod.GET, "/api/userfoto/{id}").permitAll()
->>>>>>> albert
 		.antMatchers(HttpMethod.POST, "/upload/**").permitAll()
 		.antMatchers(HttpMethod.GET, "/upload/**").permitAll()
+		.antMatchers(HttpMethod.GET, "/api/**").permitAll()
 		.anyRequest().authenticated()
 		.and().cors().configurationSource(corsConfigurationSource());
 		
