@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import oracle.jdbc.OracleTypes;
 import pe.edu.upeu.dao.UsuariosDao;
+import pe.edu.upeu.entity.Recursos;
 import pe.edu.upeu.entity.Usuarios;
 
 @Repository
@@ -50,7 +51,7 @@ public class UsuariosDaoImp implements UsuariosDao {
 	}
 
 	@Override
-	public Map<String, Object> readAll_Active() {
+	public Map<String, Object> readAll_Active() {////// LISTA TODOS LOS ACTIVOS ESTUDIANTES y DOCENTES
 		// TODO Auto-generated method stub
 		simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
 				.withProcedureName("PR_LISTAR_USUARIOS_ACTIVOS")
@@ -60,32 +61,42 @@ public class UsuariosDaoImp implements UsuariosDao {
 	}
 
 	@Override
-	public Map<String, Object> readAll_Pending() {
+	public Map<String, Object> readAll_Pending_Est() {////////////// LISTAR USUARIOS ESTUDIANTES PENDIENTES
 		// TODO Auto-generated method stub
 		simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
-				.withProcedureName("PR_LISTAR_USUARIOS_PENDIENTES")
+				.withProcedureName("PR_LISTAR_USUARIOS_PENDIENTES_EST")
 				.withCatalogName("PKG_CRUD_USUARIOS")
-				.declareParameters(new SqlOutParameter("P_CURSOR", OracleTypes.CURSOR, new ColumnMapRowMapper()));
+				.declareParameters(new SqlOutParameter("P_CURSOR_EST_PEN", OracleTypes.CURSOR, new ColumnMapRowMapper()));
+		return simpleJdbcCall.execute();
+	}
+	
+	@Override
+	public Map<String, Object> readAll_Pending_Doc() {////////////// LISTAR USUARIOS DOCENTES PENDIENTES
+		// TODO Auto-generated method stub
+		simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("PR_LISTAR_USUARIOS_PENDIENTES_DOC")
+				.withCatalogName("PKG_CRUD_USUARIOS")
+				.declareParameters(new SqlOutParameter("P_CURSOR_DOC_PEN", OracleTypes.CURSOR, new ColumnMapRowMapper()));
 		return simpleJdbcCall.execute();
 	}
 
 	@Override
-	public Map<String, Object> readAll_Students() {
+	public Map<String, Object> readAll_Students() {////////////// LISTAR USUARIOS ESTUDIANTES ACTIVOS
 		// TODO Auto-generated method stub
 		simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
 				.withProcedureName("PR_LISTAR_USUARIOS_ESTUDIANTES")
 				.withCatalogName("PKG_CRUD_USUARIOS")
-				.declareParameters(new SqlOutParameter("P_CURSOR", OracleTypes.CURSOR, new ColumnMapRowMapper()));
+				.declareParameters(new SqlOutParameter("P_CURSOR_EST_ACT", OracleTypes.CURSOR, new ColumnMapRowMapper()));
 		return simpleJdbcCall.execute();
 	}
 
 	@Override
-	public Map<String, Object> readAll_Teachers() {
+	public Map<String, Object> readAll_Teachers() {///////////// LISTAR USUARIOS DOCENTES ACTIVOS
 		// TODO Auto-generated method stub
 		simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
 				.withProcedureName("PR_LISTAR_USUARIOS_DOCENTES")
 				.withCatalogName("PKG_CRUD_USUARIOS")
-				.declareParameters(new SqlOutParameter("P_CURSOR", OracleTypes.CURSOR, new ColumnMapRowMapper()));
+				.declareParameters(new SqlOutParameter("P_CURSOR_DOC_ACT", OracleTypes.CURSOR, new ColumnMapRowMapper()));
 		return simpleJdbcCall.execute();
 	}
 
@@ -135,27 +146,6 @@ public class UsuariosDaoImp implements UsuariosDao {
 		return jdbcTemplate.update("call PKG_CRUD_USUARIOS.PR_ELIMINAR_USUARIOS(?)",id);
 	}
 
-	@Override
-	public Map<String, Object> readName(String nameUser) {
-		// TODO Auto-generated method stub
-		simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate).withProcedureName("PR_LISTAR_USUARIOS_NAME")
-				.withCatalogName("PKG_CRUD_USUARIOS")
-				.declareParameters(new SqlOutParameter("P_CUR_USUARIOS", OracleTypes.CURSOR, new ColumnMapRowMapper()),
-						new SqlParameter("P_USUARIO", Types.INTEGER));
-		SqlParameterSource in = new MapSqlParameterSource().addValue("P_USUARIO", nameUser);
-		return simpleJdbcCall.execute(in);
-	}
-
-	@Override
-	public Map<String, Object> readCodigo(String codigo) {
-		// TODO Auto-generated method stub
-		simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate).withProcedureName("PR_LISTAR_USUARIOS_CODIGO")
-				.withCatalogName("PKG_CRUD_USUARIOS")
-				.declareParameters(new SqlOutParameter("P_CUR_USUARIOS", OracleTypes.CURSOR, new ColumnMapRowMapper()),
-						new SqlParameter("P_CODIGO", Types.INTEGER));
-		SqlParameterSource in = new MapSqlParameterSource().addValue("P_CODIGO", codigo);
-		return simpleJdbcCall.execute(in);
-	}
 
 	@Override
 	public Map<String, Object> contadorUsers_Active() {
@@ -226,7 +216,7 @@ public class UsuariosDaoImp implements UsuariosDao {
 
 	@Override
 	@Transactional(readOnly = true)
-	public Usuarios validarUsuario(String username) {
+	public Usuarios validarUsuario(String username) { /////////// VALIDACION PARA QUE SOLO SE LOGUEEN USUARIOS CON ESTADO ACTIVO
 		// TODO Auto-generated method stub
 		String SQL = "SELECT * FROM USUARIOS WHERE USUARIO = ? and estado=1";
 		Usuarios user = new Usuarios();
@@ -235,7 +225,7 @@ public class UsuariosDaoImp implements UsuariosDao {
 	}
 
 	@Override
-	public Map<String, Object> datosUsuario(String username) {
+	public Map<String, Object> datosUsuario(String username) {///////////// JAMAS TOCAR -- SIRVE PARA LOGIN
 		// TODO Auto-generated method stub
 		String SQL = "SELECT p.idpersona , u.idusuario, u.usuario, p.nombres , p.apellidos , r.detalle as rol, r.nombre as nom_rol ,cu.color_fondo, cu.color_menu \r\n" + 
 				"FROM personas p, usuarios u , roles r, rol_usuarios ru , config_usuario cu where p.idpersona = u. idpersona and r.idrol=ru.idrol and u.idusuario=ru.idusuario and u.idusuario=cu.idusuario and u.usuario = ?";
@@ -279,6 +269,33 @@ public class UsuariosDaoImp implements UsuariosDao {
 						new SqlParameter("P_IDUSUARIO", Types.INTEGER));
 		SqlParameterSource in = new MapSqlParameterSource().addValue("P_IDUSUARIO", id);
 		return simpleJdbcCall.execute(in);
+	}
+	@Override
+	public Usuarios listar_foto(int id) {
+		// TODO Auto-generated method stub
+		String sql = "SELECT idusuario,usuario,sede,foto FROM USUARIOS WHERE IDUSUARIO=?";
+		
+		Usuarios us = new Usuarios();
+		us=jdbcTemplate.queryForObject(sql, new Object[]{id}, new BeanPropertyRowMapper<>(Usuarios.class));
+		us.toString();
+		System.out.println(us);
+		return us;
+	}
+
+	@Override
+	public Map<String, Object> listar_datosPersona(int id) {//////// NO TOCAR --- KENY
+		simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate).withProcedureName("PR_LISTAR_USER_ID")
+				.withCatalogName("PKG_CRUD_USUARIOS")
+				.declareParameters(new SqlOutParameter("LIST_USER", OracleTypes.CURSOR, new ColumnMapRowMapper()),
+						new SqlParameter("P_IDUSUARIO", Types.INTEGER));
+		SqlParameterSource in = new MapSqlParameterSource().addValue("P_IDUSUARIO", id);
+		return simpleJdbcCall.execute(in);
+	}
+
+	@Override
+	public int UpdateFoto(int id, String foto) {
+		return jdbcTemplate.update("call PKG_CRUD_USUARIOS.PR_MODIFICAR_FOTO(?,?)",
+				id,foto);
 	}
 
 }

@@ -17,15 +17,15 @@ import org.springframework.web.bind.annotation.RestController;
 import pe.edu.upeu.entity.Opcion;
 import pe.edu.upeu.service.OpcionService;
 
-@CrossOrigin(origins = "*")
+
 @RestController
-@RequestMapping("/api/opcion")
+@RequestMapping("/api")
 public class OpcionController {
 	@Autowired
 	private OpcionService opcionService;
 	
-	@Secured({"ROLE_STUDENT"})
-	@GetMapping("/")
+
+	@GetMapping("/opciones")
 	public Map<String, Object> readAll(){
 		return opcionService.readAll();
 	}
@@ -43,16 +43,22 @@ public class OpcionController {
 				
 	}
 	
-	@Secured({"ROLE_STUDENT"})
-	@PutMapping("/update/{id}")
+
+	@PutMapping("/update_opc/{id}")
 	public int update(@RequestBody Opcion opcion ,@PathVariable int id) {
 		opcion.setIdopcion(id);
 		return opcionService.update(opcion);
 	}
 	
-	@Secured({"ROLE_STUDENT"})
-	@DeleteMapping("/delete/{id}")
+
+	@DeleteMapping("/delete_opcion/{id}")
 	public int delete(@PathVariable int id) {
 		return opcionService.delete(id);
+	}
+	
+	@Secured({"ROLE_ADMIN","ROLE_SECRETARY","ROLE_STUDENT","ROLE_TEACHER","ROLE_DIGETTI"})
+	@GetMapping("/opc/{nom_rol}")
+	public Map<String,Object> cargarOpciones(@PathVariable String nom_rol) {		
+		return opcionService.cargarOpciones(nom_rol);
 	}
 }

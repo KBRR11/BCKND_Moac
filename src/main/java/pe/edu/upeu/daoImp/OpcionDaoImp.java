@@ -62,4 +62,14 @@ public class OpcionDaoImp implements OpcionDao{
 		return simpleJdbcCall.execute();
 	}
 
+	@Override
+	public Map<String, Object> cargarOpciones(String nom_rol) {
+		simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate).withProcedureName("PR_CARGAR_OPCIONES")
+				.withCatalogName("PKG_CRUD_OPCIONES")
+				.declareParameters(new SqlOutParameter("LIST_OPTIONS", OracleTypes.CURSOR, new ColumnMapRowMapper()),
+						new SqlParameter("P_NOM_ROL", Types.VARCHAR));
+		SqlParameterSource in = new MapSqlParameterSource().addValue("P_NOM_ROL", nom_rol);
+		return simpleJdbcCall.execute(in);
+	}
+
 }

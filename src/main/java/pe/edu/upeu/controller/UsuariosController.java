@@ -1,8 +1,21 @@
 package pe.edu.upeu.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,8 +24,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import pe.edu.upeu.entity.Recursos;
 import pe.edu.upeu.entity.Usuarios;
 import pe.edu.upeu.service.UsuariosService;
 
@@ -46,9 +62,15 @@ public class UsuariosController {
 	}
 	
 	@Secured({"ROLE_ADMIN","ROLE_SECRETARY"})
-	@GetMapping("/all_pending")
-	public Map<String, Object> readAll_Pending() {
-		return usuariosService.readAll_Pending();
+	@GetMapping("/all_pending_Est")
+	public Map<String, Object> readAll_Pending_Est() {
+		return usuariosService.readAll_Pending_Est();
+	}
+	
+	@Secured({"ROLE_ADMIN","ROLE_SECRETARY"})
+	@GetMapping("/all_pending_Doc")
+	public Map<String, Object> readAll_Pending_Doc() {
+		return usuariosService.readAll_Pending_Doc();
 	}
 	
 	@Secured({"ROLE_ADMIN","ROLE_SECRETARY"})
@@ -103,22 +125,10 @@ public class UsuariosController {
 		return usuariosService.activar_user(id);
 	}
 	
-	@Secured({"ROLE_ADMIN","ROLE_DIGETTI","ROLE_STUDENT"})
-	@DeleteMapping("/delete/{id}")
+	@Secured({"ROLE_ADMIN","ROLE_DIGETTI","ROLE_SECRETARY"})
+	@DeleteMapping("/delete_user/{id}")
 	public int delete(@PathVariable int id) {
 		return usuariosService.delete(id);
-	}
-	
-	@Secured({"ROLE_ADMIN","ROLE_SECRETARY"})
-	@GetMapping("/read_name/{nameUser}")
-	public Map<String,Object> readName(@PathVariable String nameUser) {		
-		return usuariosService.readName(nameUser);
-	}
-	
-	@Secured({"ROLE_ADMIN","ROLE_SECRETARY"})
-	@GetMapping("/read_code/{codigo}")
-	public Map<String,Object> readCodigo(@PathVariable String codigo) {		
-		return usuariosService.readCodigo(codigo);
 	}
 	
 	@Secured({"ROLE_ADMIN","ROLE_SECRETARY"})
@@ -173,7 +183,7 @@ public class UsuariosController {
 	}		
 	
 	@Secured({"ROLE_DIGETTI", "ROLE_STUDENT"})
-	@PutMapping("/update/{id}")
+	@PutMapping("/update_user/{id}")
 	public int update_user(@RequestBody Usuarios users, @PathVariable int id) {
 		users.setIdusuario(id);
 		return usuariosService.update_user(users);
@@ -190,4 +200,84 @@ public class UsuariosController {
 	public Map<String,Object> listar(@PathVariable int id) {
 		return usuariosService.listar(id);
 	}
+	
+
+	@Secured({"ROLE_SECRETARY","ROLE_TEACHER", "ROLE_ADMIN", "ROLE_STUDENT" , "ROLE_DIGETTI"})
+	@GetMapping("/listarDatosPersona/{id}")
+	public Map<String,Object> listarDatosPersona(@PathVariable int id) {
+		return usuariosService.listar_datosPersona(id);
+	}
+
+	@GetMapping("/userfoto/{id}")
+	public ResponseEntity<Resource> verFotouser(@PathVariable int id){
+		Usuarios us = new Usuarios();
+		Resource user = null;
+		usuariosService.listar(id);
+		
+		us=usuariosService.listar_foto(id);
+		//System.out.println(us);
+		String nombreArchivo = us.getFoto();
+		Path rutaArchivo = Paths.get(".//src//main//resources//file//usuarios//").resolve(nombreArchivo).toAbsolutePath();	
+
+		
+		try {
+			user = new UrlResource(rutaArchivo.toUri());
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(!user.exists() && !user.isReadable()) {
+			throw new RuntimeException("Error :" + nombreArchivo);
+		}
+		HttpHeaders cabecera = new HttpHeaders();
+		cabecera.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + user.getFilename() + "\"");
+		
+		return new ResponseEntity<Resource>(user, cabecera, HttpStatus.OK);
+	}
+	
+	@PostMapping("/subirfoto")
+	public ResponseEntity<?> updtefoto(@RequestParam("archivo") MultipartFile archivo, @RequestParam("id") int id){
+	Map<String, Object> response = new HashMap<>();
+	//System.out.println(id+" es el puto id");
+	Path rutaArchivo = null;
+	String nombreArchivo = null; 
+	Usuarios u = new Usuarios();
+	u = usuariosService.listar_foto(id);
+	System.out.println(u.getFoto());
+	if(!archivo.isEmpty()) {
+		
+			nombreArchivo = UUID.randomUUID().toString()+"_"+archivo.getOriginalFilename().replace(" ", "");
+			rutaArchivo = Paths.get(".//src//main//resources//file//usuarios//").resolve(nombreArchivo).toAbsolutePath();
+		
+		}
+		
+		
+		try {
+			
+			Files.copy(archivo.getInputStream(), rutaArchivo);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			response.put("mensaje", "Error al subir la imagen : " +nombreArchivo);
+			response.put("error", e.getMessage().concat(":").concat(e.getCause().getMessage()));
+			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		String nombrefotoanterior = u.getFoto();
+				
+			
+		
+		if (nombrefotoanterior != null || nombrefotoanterior.length() >0) {
+			Path rutaFotoAnterior = Paths.get(".//src//main//resources//file//usuarios//").resolve(nombrefotoanterior).toAbsolutePath();
+			File archivoanterior = rutaFotoAnterior.toFile();
+			if (archivoanterior.exists() && archivoanterior.canRead()) {
+				archivoanterior.delete();
+			}
+		}
+		usuariosService.UpdateFoto(id, nombreArchivo);
+	return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+	
+}
+	
+
 }

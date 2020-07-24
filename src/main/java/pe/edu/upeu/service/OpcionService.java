@@ -10,4 +10,5 @@ public interface OpcionService {
 	public int delete(int o);
 	public Map<String, Object> read(int idopcion);
 	public Map<String, Object> readAll();
+	public Map<String, Object> cargarOpciones(String nom_rol);
 }
