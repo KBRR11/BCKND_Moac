@@ -33,9 +33,9 @@ public class Detalle_ConvocatoriaServiceImp implements Detalle_ConvocatoriaServi
 	}
 
 	@Override
-	public Map<String, Object> read(int idconv) {
+	public Map<String, Object> read(int idconv, int tipo) {
 		// TODO Auto-generated method stub
-		return convocatoriaDao.read(idconv);
+		return convocatoriaDao.read(idconv, tipo);
 	}
 
 	@Override

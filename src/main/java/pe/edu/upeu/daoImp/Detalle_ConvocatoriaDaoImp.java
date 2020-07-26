@@ -41,12 +41,15 @@ public class Detalle_ConvocatoriaDaoImp implements Detalle_ConvocatoriaDao{
 	}
 
 	@Override
-	public Map<String, Object> read(int idconv) {
+	public Map<String, Object> read(int idconv, int tipo) {
 		// TODO Auto-generated method stub
 		simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
 				.withProcedureName("PR_BUSCAR_CONVOCATORIA_DETALLE_CONVOCATORIA").withCatalogName("PKG_CRUD_DETALLE_CONVOCATORIA")
-				.declareParameters(new SqlOutParameter("FACULTAD",OracleTypes.CURSOR,new ColumnMapRowMapper()), new SqlParameter("p_IDCONVOCATORIA", Types.INTEGER)); 
-		SqlParameterSource in = new MapSqlParameterSource().addValue("p_IDCONVOCATORIA", idconv);
+				.declareParameters(new SqlOutParameter("FACULTAD",OracleTypes.CURSOR,new ColumnMapRowMapper())
+						, new SqlParameter("P_IDCONVOCATORIA", Types.INTEGER)
+						, new SqlParameter("P_TIPO", Types.INTEGER)); 
+		SqlParameterSource in = new MapSqlParameterSource().addValue("P_IDCONVOCATORIA", idconv)
+												.addValue("P_TIPO", tipo);
 		return  simpleJdbcCall.execute(in);
 	}
 

@@ -47,9 +47,9 @@ public class Detalle_ConvocatoriaController {
 		return detalle_ConvocatoriaService.delete(id);
 	}
 	@Secured({"ROLE_STUDENT"})
-	@GetMapping("detconvocatoria/{id}")
-	public Map<String,Object> read(@PathVariable int id) {
-		return detalle_ConvocatoriaService.read(id);
+	@GetMapping("detconvocatoria/{id}/{tipo}")
+	public Map<String,Object> read(@PathVariable int id,@PathVariable int tipo) {
+		return detalle_ConvocatoriaService.read(id, tipo);
 	}
 	@Secured({"ROLE_STUDENT"})
 	@GetMapping("detconvocatoria/alum/{id}")
