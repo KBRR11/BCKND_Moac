@@ -44,4 +44,10 @@ public class Detalle_ConvocatoriaServiceImp implements Detalle_ConvocatoriaServi
 		return convocatoriaDao.readAlumnoByIdconv(idconv);
 	}
 
+	@Override
+	public int crear_escuela(Detalle_Convocatoria detconv) {
+		// TODO Auto-generated method stub
+		return convocatoriaDao.crear_escuela(detconv);
+	}
+
 }

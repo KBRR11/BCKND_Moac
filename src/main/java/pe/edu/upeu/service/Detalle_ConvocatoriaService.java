@@ -11,4 +11,5 @@ public interface Detalle_ConvocatoriaService {
 	public int delete(int iddetconv);
 	public Map<String,Object> read(int idconv);
 	public Map<String,Object> readAlumnoByIdconv(int idconv);
+	public int crear_escuela(Detalle_Convocatoria detconv);
 }

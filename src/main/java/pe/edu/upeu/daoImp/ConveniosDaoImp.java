@@ -62,7 +62,7 @@ public class ConveniosDaoImp implements ConveniosDao{
 						new SqlParameter("P_IDUSUARIO", Types.INTEGER)); 
 		SqlParameterSource in = new MapSqlParameterSource().addValue("P_IDCONVENIO", idconvenio)
 														   .addValue("P_IDUSUARIO", idusuarui);
-		return simpleJdbcCall.execute();
+		return simpleJdbcCall.execute(in);
 	}
 	@Override
 	public Map<String, Object> listarcursores(int id) {
