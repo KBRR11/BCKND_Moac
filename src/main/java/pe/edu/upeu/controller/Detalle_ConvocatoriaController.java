@@ -25,8 +25,13 @@ public class Detalle_ConvocatoriaController {
 	@Secured({"ROLE_STUDENT"})
 	@PostMapping("/detconvocatoria/add")
 	public int create(@RequestBody Detalle_Convocatoria detconv) {
-		System.out.println(detconv.toString());
 		return detalle_ConvocatoriaService.create(detconv);
+
+	}
+	@Secured({"ROLE_STUDENT"})
+	@PostMapping("/detconvocatoria/escuela/add")
+	public int create_detalleescuela(@RequestBody Detalle_Convocatoria detconv) {
+		return detalle_ConvocatoriaService.crear_escuela(detconv);
 
 	}
 	@Secured({"ROLE_STUDENT"})
@@ -42,9 +47,9 @@ public class Detalle_ConvocatoriaController {
 		return detalle_ConvocatoriaService.delete(id);
 	}
 	@Secured({"ROLE_STUDENT"})
-	@GetMapping("detconvocatoria/{id}")
-	public Map<String,Object> read(@PathVariable int id) {
-		return detalle_ConvocatoriaService.read(id);
+	@GetMapping("detconvocatoria/{id}/{tipo}")
+	public Map<String,Object> read(@PathVariable int id,@PathVariable int tipo) {
+		return detalle_ConvocatoriaService.read(id, tipo);
 	}
 	@Secured({"ROLE_STUDENT"})
 	@GetMapping("detconvocatoria/alum/{id}")

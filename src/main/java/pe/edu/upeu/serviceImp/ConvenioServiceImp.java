@@ -44,4 +44,15 @@ public class ConvenioServiceImp implements ConvenioService{
 		return convenioDao.readAll();
 	}
 
+	@Override
+	public Map<String, Object> validador(int idconvenio, int idusuarui) {
+		// TODO Auto-generated method stub
+		return convenioDao.validador(idconvenio, idusuarui);
+	}
+	@Override
+	public Map<String, Object> listarcursores(int id) {
+		// TODO Auto-generated method stub
+		return convenioDao.listarcursores(id);
+	}
+
 }

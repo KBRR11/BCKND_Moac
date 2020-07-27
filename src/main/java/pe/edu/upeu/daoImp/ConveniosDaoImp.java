@@ -52,4 +52,27 @@ public class ConveniosDaoImp implements ConveniosDao{
 				.declareParameters(new SqlOutParameter("LIST_CONVENIOS", OracleTypes.CURSOR, new ColumnMapRowMapper()));
 		return simpleJdbcCall.execute();
 	}
+	
+	@Override
+	public Map<String, Object> validador(int idconvenio, int idusuarui) {
+		simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("PR_VALIDAR").withCatalogName("PKG_CRUD_CONVENIOS")
+				.declareParameters(new SqlOutParameter("RESPUESTA",OracleTypes.VARCHAR),
+						new SqlParameter("P_IDCONVENIO", Types.INTEGER),
+						new SqlParameter("P_IDUSUARIO", Types.INTEGER)); 
+		SqlParameterSource in = new MapSqlParameterSource().addValue("P_IDCONVENIO", idconvenio)
+														   .addValue("P_IDUSUARIO", idusuarui);
+		return simpleJdbcCall.execute(in);
+	}
+	@Override
+	public Map<String, Object> listarcursores(int id) {
+		// TODO Auto-generated method stub
+		simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("PR_LISTAR_UNIVERSIDAD_ESCUELA_ID").withCatalogName("PKG_CRUD_UNIVERSIDADES")
+				.declareParameters(new SqlOutParameter("DATOS_UNIVERSIDAD",OracleTypes.CURSOR,new ColumnMapRowMapper()), new SqlParameter("P_IDCONVENIO", Types.INTEGER), 
+								   new SqlOutParameter("ESCUELA_UNIVERSIDADES", OracleTypes.CURSOR,new ColumnMapRowMapper()), new SqlParameter("P_IDCONVENIO", Types.INTEGER)); 
+		SqlParameterSource in = new MapSqlParameterSource().addValue("P_IDCONVENIO", id);
+
+		return  simpleJdbcCall.execute(in);
+	}
 }
