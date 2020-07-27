@@ -267,8 +267,8 @@ public class UsuariosController {
 		
 		String nombrefotoanterior = u.getFoto();
 				
-		System.out.println("Soy el Id del Usuario"+id);	
-		System.out.println("Soy el archivo "+nombreArchivo);
+		//System.out.println("Soy el Id del Usuario"+id);	
+		//System.out.println("Soy el archivo "+nombreArchivo);
 		if (nombrefotoanterior != null ) {
 			Path rutaFotoAnterior = Paths.get(".//src//main//resources//file//usuarios//").resolve(nombrefotoanterior).toAbsolutePath();
 			File archivoanterior = rutaFotoAnterior.toFile();
