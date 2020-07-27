@@ -244,7 +244,7 @@ public class UsuariosController {
 	String nombreArchivo = null; 
 	Usuarios u = new Usuarios();
 	u = usuariosService.listar_foto(id);
-	System.out.println(u.getFoto());
+	//System.out.println(u.getFoto());
 	if(!archivo.isEmpty()) {
 		
 			nombreArchivo = UUID.randomUUID().toString()+"_"+archivo.getOriginalFilename().replace(" ", "");
@@ -256,25 +256,27 @@ public class UsuariosController {
 		try {
 			
 			Files.copy(archivo.getInputStream(), rutaArchivo);
+			usuariosService.UpdateFoto(id, nombreArchivo);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			response.put("mensaje", "Error al subir la imagen : " +nombreArchivo);
 			response.put("error", e.getMessage().concat(":").concat(e.getCause().getMessage()));
 			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+			
 		}
 		
 		String nombrefotoanterior = u.getFoto();
 				
-			
-		
-		if (nombrefotoanterior != null || nombrefotoanterior.length() >0) {
+		System.out.println("Soy el Id del Usuario"+id);	
+		System.out.println("Soy el archivo "+nombreArchivo);
+		if (nombrefotoanterior != null ) {
 			Path rutaFotoAnterior = Paths.get(".//src//main//resources//file//usuarios//").resolve(nombrefotoanterior).toAbsolutePath();
 			File archivoanterior = rutaFotoAnterior.toFile();
 			if (archivoanterior.exists() && archivoanterior.canRead()) {
 				archivoanterior.delete();
 			}
 		}
-		usuariosService.UpdateFoto(id, nombreArchivo);
+		
 	return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	
 }
