@@ -39,9 +39,9 @@ public class ConvocatoriaServiceImp implements ConvocatoriaService {
 	}
 
 	@Override
-	public Map<String, Object> readAll() {
+	public Map<String, Object> readAll(int tipo) {
 		// TODO Auto-generated method stub
-		return convocatoriaDao.readAll();
+		return convocatoriaDao.readAll(tipo);
 	}
 
 }

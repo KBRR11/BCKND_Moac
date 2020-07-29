@@ -30,7 +30,7 @@ public class OpcionController {
 		return opcionService.readAll();
 	}
 	
-	@Secured({"ROLE_STUDENT"})
+	@Secured({"ROLE_STUDENT","ROLE_DIRECTOR"})
 	@GetMapping("/{idopcion}")
 	public Map<String, Object> read(@PathVariable int idopcion){
 		return opcionService.read(idopcion);
@@ -56,7 +56,7 @@ public class OpcionController {
 		return opcionService.delete(id);
 	}
 	
-	@Secured({"ROLE_ADMIN","ROLE_SECRETARY","ROLE_STUDENT","ROLE_TEACHER","ROLE_DIGETTI"})
+	@Secured({"ROLE_ADMIN","ROLE_SECRETARY","ROLE_STUDENT","ROLE_TEACHER","ROLE_DIGETTI","ROLE_DIRECTOR"})
 	@GetMapping("/opc/{nom_rol}")
 	public Map<String,Object> cargarOpciones(@PathVariable String nom_rol) {		
 		return opcionService.cargarOpciones(nom_rol);

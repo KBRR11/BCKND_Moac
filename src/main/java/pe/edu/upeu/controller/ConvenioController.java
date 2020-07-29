@@ -22,28 +22,29 @@ public class ConvenioController {
 	@Autowired
 	private ConvenioService convenioService;
 	
-	@Secured({"ROLE_STUDENT"})
+	@Secured({"ROLE_STUDENT","ROLE_SECRETARY",})
 	@PostMapping("/convenios/add")
 	public int create(@RequestBody Convenios co) {
 		System.out.println(co.toString());
 		return convenioService.create(co);
 
 	}
-	@Secured({"ROLE_STUDENT","ROLE_SECRETARY"})
+
+	@Secured({"ROLE_STUDENT","ROLE_SECRETARY",})
 	@GetMapping("/convenios")
 	public Map<String, Object> readAll() {
 		return convenioService.readAll();
 
 	}
 	
-	@Secured({"ROLE_STUDENT"})
+	@Secured({"ROLE_STUDENT","ROLE_SECRETARY",})
 	@PutMapping("convenios/upd/{id}")
 	public int update(@RequestBody Convenios co, @PathVariable int id ) {
 		co.setIdconvenio(id);
 		return convenioService.update(co);
 	}
 	
-	@Secured({"ROLE_STUDENT"})
+	@Secured({"ROLE_STUDENT","ROLE_SECRETARY",})
 	@DeleteMapping("convenios/del/{id}")
 	public int delete(@PathVariable int id) {
 		return convenioService.delete(id);
@@ -55,7 +56,7 @@ public class ConvenioController {
 		return convenioService.read(id);
 	}
 
-	@Secured({"ROLE_STUDENT"})
+	@Secured({"ROLE_STUDENT","ROLE_SECRETARY",})
 	@GetMapping("convenios/{idconv}/{idusu}")
 	public Map<String, Object> validar(@PathVariable int idconv,@PathVariable int idusu) {
 		return convenioService.validador(idconv, idusu);
