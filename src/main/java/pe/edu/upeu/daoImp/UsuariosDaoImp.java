@@ -278,7 +278,7 @@ public class UsuariosDaoImp implements UsuariosDao {
 		Usuarios us = new Usuarios();
 		us=jdbcTemplate.queryForObject(sql, new Object[]{id}, new BeanPropertyRowMapper<>(Usuarios.class));
 		us.toString();
-		System.out.println(us);
+		//System.out.println("hola soy us "+us.getFoto());
 		return us;
 	}
 

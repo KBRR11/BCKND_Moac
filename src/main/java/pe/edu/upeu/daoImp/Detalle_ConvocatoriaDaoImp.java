@@ -18,22 +18,22 @@ import pe.edu.upeu.dao.Detalle_ConvocatoriaDao;
 import pe.edu.upeu.entity.Detalle_Convocatoria;
 
 @Repository
-public class Deralle_ConvocatoriaDaoImp implements Detalle_ConvocatoriaDao{
+public class Detalle_ConvocatoriaDaoImp implements Detalle_ConvocatoriaDao{
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	private SimpleJdbcCall simpleJdbcCall;
 	@Override
 	public int create(Detalle_Convocatoria detconv) {
 		// TODO Auto-generated method stub
-		return jdbcTemplate.update("call PKG_CRUD_DETALLE_CONVOCATORIA.PR_CREAR_DETALLE_CONVOCATORIA(?,?,?,?,?)",detconv.getHasta(),detconv.getIdconvocatoria(),detconv.getIdescuela(),detconv.getDesde(),detconv.getNombre());
+		return jdbcTemplate.update("call PKG_CRUD_DETALLE_CONVOCATORIA.PR_CREAR_DETALLE_CONVOCATORIA(?,?,?,?)",detconv.getIdconvocatoria(),detconv.getIdescuela(),detconv.getIdconvenio(),detconv.getN_vacantes());
 	}
 
 	@Override
 	public int update(Detalle_Convocatoria detconv) {
 		// TODO Auto-generated method stub
-		return jdbcTemplate.update("call PKG_CRUD_DETALLE_CONVOCATORIA.PR_ACTUALIZAR_DETALLE_CONVOCATORIA(?,?,?,?,?,?)",detconv.getHasta(),detconv.getIdescuela(),detconv.getIdconvocatoria(),detconv.getIdetalle_convocatoria(),detconv.getDesde(),detconv.getNombre());
+		return jdbcTemplate.update("call PKG_CRUD_DETALLE_CONVOCATORIA.PR_ACTUALIZAR_DETALLE_CONVOCATORIA(?,?,?,?,?)",detconv.getIdescuela(),detconv.getIdconvocatoria(),detconv.getIdconvenio(), detconv.getN_vacantes(), detconv.getIdetalle_convocatoria());
 	}
-
+	
 	@Override
 	public int delete(int iddetconv) {
 		// TODO Auto-generated method stub
@@ -41,12 +41,15 @@ public class Deralle_ConvocatoriaDaoImp implements Detalle_ConvocatoriaDao{
 	}
 
 	@Override
-	public Map<String, Object> read(int idconv) {
+	public Map<String, Object> read(int idconv, int tipo) {
 		// TODO Auto-generated method stub
 		simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
 				.withProcedureName("PR_BUSCAR_CONVOCATORIA_DETALLE_CONVOCATORIA").withCatalogName("PKG_CRUD_DETALLE_CONVOCATORIA")
-				.declareParameters(new SqlOutParameter("FACULTAD",OracleTypes.CURSOR,new ColumnMapRowMapper()), new SqlParameter("p_IDCONVOCATORIA", Types.INTEGER)); 
-		SqlParameterSource in = new MapSqlParameterSource().addValue("p_IDCONVOCATORIA", idconv);
+				.declareParameters(new SqlOutParameter("FACULTAD",OracleTypes.CURSOR,new ColumnMapRowMapper())
+						, new SqlParameter("P_IDCONVOCATORIA", Types.INTEGER)
+						, new SqlParameter("P_TIPO", Types.INTEGER)); 
+		SqlParameterSource in = new MapSqlParameterSource().addValue("P_IDCONVOCATORIA", idconv)
+												.addValue("P_TIPO", tipo);
 		return  simpleJdbcCall.execute(in);
 	}
 
@@ -58,6 +61,12 @@ public class Deralle_ConvocatoriaDaoImp implements Detalle_ConvocatoriaDao{
 				.declareParameters(new SqlOutParameter("CONVOCATORIA",OracleTypes.CURSOR,new ColumnMapRowMapper()), new SqlParameter("P_IDCONVOCATORIA", Types.INTEGER)); 
 		SqlParameterSource in = new MapSqlParameterSource().addValue("P_IDCONVOCATORIA", idconv);
 		return  simpleJdbcCall.execute(in);
+	}
+
+	@Override
+	public int crear_escuela(Detalle_Convocatoria detconv) {
+		// TODO Auto-generated method stub
+		return jdbcTemplate.update("call PKG_CRUD_DETALLE_CONVOCATORIA.PR_CREAR_ESCUELA(?,?,?)",detconv.getIdescuela(),detconv.getIdconvocatoria(),detconv.getN_vacantes());
 	}
 
 }
