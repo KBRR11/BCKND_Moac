@@ -37,7 +37,7 @@ public class RequisitosDaoImp implements RequisitosDao{
 	@Override
 	public int delete(int idreq) {
 		// TODO Auto-generated method stub
-		return jdbcTemplate.update("call PKG_CRUD_REQUISITOS.PR_ELIMINAR_REQUISITOS(?)",idreq);
+		return jdbcTemplate.update("call PKG_CRUD_REQUISITOS.PR_ELIMINAR_REQUISITOCONVENIO(?)",idreq);
 	}
 
 	@Override
@@ -65,6 +65,16 @@ public class RequisitosDaoImp implements RequisitosDao{
 		// TODO Auto-generated method stub
 		simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
 				.withProcedureName("PR_BUSCAR_REQCONVE").withCatalogName("PKG_CRUD_REQUISITOS")
+				.declareParameters(new SqlOutParameter("REQCONVE",OracleTypes.CURSOR,new ColumnMapRowMapper()), new SqlParameter("P_IDREQUICONV", Types.INTEGER),new SqlParameter("P_ESTADO", Types.INTEGER)); 
+		SqlParameterSource in = new MapSqlParameterSource().addValue("P_IDREQUICONV", idconve).addValue("P_ESTADO", ide);
+		return  simpleJdbcCall.execute(in);
+	}
+	
+	@Override
+	public Map<String, Object> readConvenios2(int idconve, int ide) {
+		// TODO Auto-generated method stub
+		simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("PR_BUSCAR_REQCONVE2").withCatalogName("PKG_CRUD_REQUISITOS")
 				.declareParameters(new SqlOutParameter("REQCONVE",OracleTypes.CURSOR,new ColumnMapRowMapper()), new SqlParameter("P_IDREQUICONV", Types.INTEGER),new SqlParameter("P_ESTADO", Types.INTEGER)); 
 		SqlParameterSource in = new MapSqlParameterSource().addValue("P_IDREQUICONV", idconve).addValue("P_ESTADO", ide);
 		return  simpleJdbcCall.execute(in);

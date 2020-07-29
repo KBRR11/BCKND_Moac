@@ -11,4 +11,5 @@ public interface RequisitosDao {
 	public Map<String,Object> read(int idreq);
 	public Map<String, Object> readAll();
 	public Map<String,Object> readConvenios(int idconve,int ide);
+	public Map<String,Object> readConvenios2(int idconve,int ide);
 }

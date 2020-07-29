@@ -50,4 +50,10 @@ public class RequisitoServiceImp implements RequisitosService{
 		return requisitosDao.readConvenios(idconve,ide);
 	}
 
+	@Override
+	public Map<String, Object> readConvenios2(int idconve, int ide) {
+		// TODO Auto-generated method stub
+		return requisitosDao.readConvenios2(idconve, ide);
+	}
+
 }
