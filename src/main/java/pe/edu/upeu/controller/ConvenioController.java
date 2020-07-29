@@ -29,7 +29,7 @@ public class ConvenioController {
 		return convenioService.create(co);
 
 	}
-	@Secured({"ROLE_STUDENT"})
+	@Secured({"ROLE_STUDENT","ROLE_SECRETARY"})
 	@GetMapping("/convenios")
 	public Map<String, Object> readAll() {
 		return convenioService.readAll();
