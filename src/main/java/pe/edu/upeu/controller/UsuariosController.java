@@ -167,7 +167,7 @@ public class UsuariosController {
 		return usuariosService.contadorTeachers_Pending();
 	}
 	
-	@Secured({"ROLE_ADMIN","ROLE_SECRETARY","ROLE_STUDENT","ROLE_TEACHER"})
+	@Secured({"ROLE_ADMIN","ROLE_SECRETARY","ROLE_STUDENT","ROLE_TEACHER","ROLE_DIGETTI"})
 	@PutMapping("upd/colores/{id}")
 	public int update_colores(@RequestBody Usuarios colores, @PathVariable int id) {
 		colores.setIdusuario(id);
@@ -189,7 +189,7 @@ public class UsuariosController {
 		return usuariosService.update_user(users);
 	}
 	
-	@Secured({"ROLE_STUDENT"})
+	@Secured({"ROLE_STUDENT","ROLE_DIGETTI"})
 	@GetMapping("/listar")
 	public Map<String, Object> listarAll() {
 		return usuariosService.listarTodo();

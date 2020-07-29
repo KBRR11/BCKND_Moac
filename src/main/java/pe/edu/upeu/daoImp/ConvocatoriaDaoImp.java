@@ -52,13 +52,14 @@ public class ConvocatoriaDaoImp implements ConvocatoriaDao{
 	}
 
 	@Override
-	public Map<String, Object> readAll() {
+	public Map<String, Object> readAll(int tipo) {
 		// TODO Auto-generated method stub
 		simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
 				.withProcedureName("PR_LISTAR_CONVOCATORIAS")
 				.withCatalogName("PKG_CRUD_CONVOCATORIAS")
-				.declareParameters(new SqlOutParameter("LIST_CONVOCATORIA", OracleTypes.CURSOR, new ColumnMapRowMapper()));
-		return simpleJdbcCall.execute();
+				.declareParameters(new SqlOutParameter("LIST_CONVOCATORIA", OracleTypes.CURSOR, new ColumnMapRowMapper()), new SqlParameter("P_TIPO", Types.INTEGER));
+		SqlParameterSource in = new MapSqlParameterSource().addValue("P_TIPO", tipo);
+		return simpleJdbcCall.execute(in);
 	}
 
 }
