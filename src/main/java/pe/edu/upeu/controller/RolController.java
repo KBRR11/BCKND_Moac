@@ -17,13 +17,13 @@ public class RolController {
 	@Autowired
 	private RolesService rolService;
 	
-	@Secured({"ROLE_STUDENT"})
+	@Secured({"ROLE_STUDENT","ROLE_DIGETTI"})
 	@GetMapping("/rol")
 	public Map<String, Object> readAll() {
 		return rolService.readAll();
 
     }
-	@Secured({"ROLE_STUDENT"})
+	@Secured({"ROLE_STUDENT","ROLE_DIGETTI"})
 	@GetMapping("/rol/{id}")
 	public Map<String,Object> read(@PathVariable int id) {
 		return rolService.read(id);
