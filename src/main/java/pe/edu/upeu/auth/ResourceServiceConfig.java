@@ -32,6 +32,7 @@ public class ResourceServiceConfig extends ResourceServerConfigurerAdapter {
 		.antMatchers(HttpMethod.GET, "/upload/**").permitAll()
 		.antMatchers(HttpMethod.POST, "/api/requisito/create").permitAll()
 		.antMatchers(HttpMethod.GET, "/api/requisitoVer/{id}").permitAll()
+		.antMatchers(HttpMethod.POST, "/api/solicitud_requisitos/create").permitAll()
 		.anyRequest().authenticated()
 		.and().cors().configurationSource(corsConfigurationSource());
 		
