@@ -31,15 +31,16 @@ class MovilidadAcademidaBckndApplicationTests {
 	assertTrue(epDao.readEpForFAC(3)!=null);
 	}*/
 	
-	/*@Test
+	@Test
 	void autentificarUser() {
 
-		assertTrue(usuariosDao.validarUsuario("salma")!=null);
-	}*/
-	
+		assertTrue(usuariosDao.validarUsuario("romario")!=null);
+	}
+	/*
 	@Test
 	void updatePass() {
 		Usuarios us = new Usuarios(2, "hola");
 		usuariosDao.update_password(us);
-	}
+	}*/
+	
 }

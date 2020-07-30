@@ -22,33 +22,33 @@ public class ConvocatoriaController {
 	@Autowired
 	private ConvocatoriaService convocatoriaService;
 	
-	@Secured({"ROLE_STUDENT"})
+	@Secured({"ROLE_DIRECTOR","ROLE_SECRETARY"})
 	@PostMapping("/convocatoria/add")
 	public int create(@RequestBody Convocatoria conv) {
 		System.out.println(conv.toString());
 		return convocatoriaService.create(conv);
 
 	}
-	@Secured({"ROLE_STUDENT"})
-	@GetMapping("/convocatoria")
-	public Map<String, Object> readAll() {
-		return convocatoriaService.readAll();
+	@Secured({"ROLE_DIRECTOR","ROLE_STUDENT","ROLE_SECRETARY"})
+	@GetMapping("/convocatoria/{tipo}")
+	public Map<String, Object> readAll(@PathVariable int tipo) {
+		return convocatoriaService.readAll(tipo);
 
 	}
-	@Secured({"ROLE_STUDENT"})
+	@Secured({"ROLE_DIRECTOR","ROLE_SECRETARY"})
 	@PutMapping("/convocatoria/upd/{id}")
 	public int update(@RequestBody Convocatoria conv, @PathVariable int id ) {
 		conv.setIdconvocatoria(id);
 		System.out.println(conv.toString());
 		return convocatoriaService.update(conv);
 	}
-	@Secured({"ROLE_STUDENT"})
+	@Secured({"ROLE_DIRECTOR","ROLE_SECRETARY"})
 	@DeleteMapping("/convocatoria/del/{id}")
 	public int delete(@PathVariable int id) {
 		return convocatoriaService.delete(id);
 	}
-	@Secured({"ROLE_STUDENT"})
-	@GetMapping("/convocatoria/{id}")
+	@Secured({"ROLE_DIRECTOR","ROLE_SECRETARY"})
+	@GetMapping("/convocatorias/{id}")
 	public Map<String,Object> read(@PathVariable int id) {
 		return convocatoriaService.read(id);
 	}

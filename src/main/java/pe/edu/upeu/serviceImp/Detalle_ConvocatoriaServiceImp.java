@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import pe.edu.upeu.dao.Detalle_ConvocatoriaDao;
 import pe.edu.upeu.entity.Detalle_Convocatoria;
+import pe.edu.upeu.entity.Usuarios;
 import pe.edu.upeu.service.Detalle_ConvocatoriaService;
 @Service
 public class Detalle_ConvocatoriaServiceImp implements Detalle_ConvocatoriaService{
@@ -33,9 +34,9 @@ public class Detalle_ConvocatoriaServiceImp implements Detalle_ConvocatoriaServi
 	}
 
 	@Override
-	public Map<String, Object> read(int idconv, int tipo) {
+	public Map<String, Object> read(int idconv, int tipo, int idep) {
 		// TODO Auto-generated method stub
-		return convocatoriaDao.read(idconv, tipo);
+		return convocatoriaDao.read(idconv, tipo, idep);
 	}
 
 	@Override
@@ -48,6 +49,24 @@ public class Detalle_ConvocatoriaServiceImp implements Detalle_ConvocatoriaServi
 	public int crear_escuela(Detalle_Convocatoria detconv) {
 		// TODO Auto-generated method stub
 		return convocatoriaDao.crear_escuela(detconv);
+	}
+
+	@Override
+	public Usuarios listar_us(int id) {
+		// TODO Auto-generated method stub
+		return convocatoriaDao.listar_us(id);
+	}
+
+	@Override
+	public Map<String, Object> vervacante(int idc, int ide) {
+		// TODO Auto-generated method stub
+		return convocatoriaDao.vervacante(idc, ide);
+	}
+
+	@Override
+	public int actualizar_vacante(int idc, int ide, int n_v) {
+		// TODO Auto-generated method stub
+		return convocatoriaDao.actualizar_vacante(idc, ide, n_v);
 	}
 
 }
