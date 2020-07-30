@@ -4,6 +4,7 @@ import java.sql.Types;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.ColumnMapRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SqlOutParameter;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Repository;
 
 import oracle.jdbc.OracleTypes;
 import pe.edu.upeu.dao.RequisitosDao;
+import pe.edu.upeu.entity.Recursos;
 import pe.edu.upeu.entity.Requisitos;
 
 @Repository
@@ -25,7 +27,7 @@ public class RequisitosDaoImp implements RequisitosDao{
 	@Override
 	public int create(Requisitos req) {
 		// TODO Auto-generated method stub
-		return jdbcTemplate.update("call PKG_CRUD_REQUISITOS.PR_CREAR_REQUISITOS(?)",req.getNombre());
+		return jdbcTemplate.update("call PKG_CRUD_REQUISITOS.PR_CREAR_REQUISITOS(?,?)",req.getNombre(),req.getRuta());
 	}
 
 	@Override
@@ -78,5 +80,15 @@ public class RequisitosDaoImp implements RequisitosDao{
 				.declareParameters(new SqlOutParameter("REQCONVE",OracleTypes.CURSOR,new ColumnMapRowMapper()), new SqlParameter("P_IDREQUICONV", Types.INTEGER),new SqlParameter("P_ESTADO", Types.INTEGER)); 
 		SqlParameterSource in = new MapSqlParameterSource().addValue("P_IDREQUICONV", idconve).addValue("P_ESTADO", ide);
 		return  simpleJdbcCall.execute(in);
+	}
+
+	@Override
+	public Requisitos listarArchivo(int id) {
+		// TODO Auto-generated method stub
+		String sql = "SELECT ruta FROM REQUISITOS WHERE IDREQUISITO=?";
+		
+		Requisitos recu = new Requisitos();
+		recu=jdbcTemplate.queryForObject(sql, new Object[]{id}, new BeanPropertyRowMapper<>(Requisitos.class));
+		return recu;
 	}
 }

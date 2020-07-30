@@ -25,7 +25,7 @@ public class Requisito_ConvenioController {
 	@Autowired
 	private Requisito_ConvenioService requisito_convenioService;
 	
-	@Secured({"ROLE_STUDENT"})
+	@Secured({"ROLE_SECRETARY"})
 	@PostMapping("/requisitos_convenio/add")
 	public int create(@RequestBody Requisito_Convenio req) {
 		System.out.println(req.toString());
@@ -33,14 +33,14 @@ public class Requisito_ConvenioController {
 
 	}
 	
-	@Secured({"ROLE_STUDENT"})
+	@Secured({"ROLE_SECRETARY"})
 	@PutMapping("/requisitos_convenio/upd/{id}")
 	public int update(@RequestBody Requisito_Convenio req, @PathVariable int id ) {
 		req.setIdrequisito_convenio(id);
 		return requisito_convenioService.update(req);
 	}
 	
-	@Secured({"ROLE_STUDENT"})
+	@Secured({"ROLE_STUDENT","ROLE_SECRETARY"})
 	@GetMapping("/requisitos_convenio/list/{idco}/{idre}")
 	public Map<String,Object> readConvenio(@PathVariable int idco,@PathVariable int idre) {
 		return requisito_convenioService.read(idco,idre);

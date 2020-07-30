@@ -5,16 +5,18 @@ public class Requisitos {
 	private String nombre;
 	private int idconvenio;
 	private String estado;
+	private String ruta;
 	public Requisitos() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Requisitos(int idrequisito, String nombre, int idconvenio, String estado) {
+	public Requisitos(int idrequisito, String nombre, int idconvenio, String estado, String ruta) {
 		super();
 		this.idrequisito = idrequisito;
 		this.nombre = nombre;
 		this.idconvenio = idconvenio;
 		this.estado = estado;
+		this.ruta = ruta;
 	}
 	public int getIdrequisito() {
 		return idrequisito;
@@ -40,5 +42,12 @@ public class Requisitos {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+	public String getRuta() {
+		return ruta;
+	}
+	public void setRuta(String ruta) {
+		this.ruta = ruta;
+	}
+	
 	
 }

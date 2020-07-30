@@ -56,4 +56,10 @@ public class RequisitoServiceImp implements RequisitosService{
 		return requisitosDao.readConvenios2(idconve, ide);
 	}
 
+	@Override
+	public Requisitos listarArchivo(int id) {
+		// TODO Auto-generated method stub
+		return requisitosDao.listarArchivo(id);
+	}
+
 }

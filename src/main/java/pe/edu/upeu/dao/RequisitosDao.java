@@ -2,6 +2,7 @@ package pe.edu.upeu.dao;
 
 import java.util.Map;
 
+import pe.edu.upeu.entity.Recursos;
 import pe.edu.upeu.entity.Requisitos;
 
 public interface RequisitosDao {
@@ -12,4 +13,5 @@ public interface RequisitosDao {
 	public Map<String, Object> readAll();
 	public Map<String,Object> readConvenios(int idconve,int ide);
 	public Map<String,Object> readConvenios2(int idconve,int ide);
+	public Requisitos listarArchivo(int id);
 }
