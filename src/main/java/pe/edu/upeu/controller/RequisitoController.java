@@ -40,14 +40,14 @@ public class RequisitoController {
 	@Autowired
 	private RequisitosService requisitosService;
 	
-	@Secured({"ROLE_SECRETARY"})
+	@Secured({"ROLE_SECRETARY","ROLE_DIRECTOR"})
 	@PostMapping("/requisitos/add")
 	public int create(@RequestBody Requisitos req) {
 		System.out.println(req.toString());
 		return requisitosService.create(req);
 
 	}
-	@Secured({"ROLE_STUDENT","ROLE_SECRETARY"})
+	@Secured({"ROLE_STUDENT","ROLE_SECRETARY","ROLE_DIRECTOR"})
 	@GetMapping("/requisitos")
 	public Map<String, Object> readAll() {
 		return requisitosService.readAll();
@@ -60,25 +60,25 @@ public class RequisitoController {
 		return requisitosService.update(req);
 	}
 	
-	@Secured({"ROLE_SECRETARY"})
+	@Secured({"ROLE_SECRETARY","ROLE_DIRECTOR"})
 	@DeleteMapping("/requisitos/del/{id}")
 	public int delete(@PathVariable int id) {
 		return requisitosService.delete(id);
 	}
 	//@Secured({"ROLE_ADMIN","ROLE_SECRETARY,ROLE_STUDENT"})
-	@Secured({"ROLE_STUDENT","ROLE_SECRETARY"})
+	@Secured({"ROLE_STUDENT","ROLE_SECRETARY","ROLE_DIRECTOR"})
 	@GetMapping("/requisitos/{id}")
 	public Map<String,Object> read(@PathVariable int id) {
 		return requisitosService.read(id);
 	}
 	
-	@Secured({"ROLE_STUDENT","ROLE_SECRETARY"})
+	@Secured({"ROLE_STUDENT","ROLE_SECRETARY","ROLE_DIRECTOR"})
 	@GetMapping("/requisitos/convenio/{idconve}/{ide}")
 	public Map<String,Object> readConvenio(@PathVariable int idconve,@PathVariable int ide) {
 		return requisitosService.readConvenios(idconve,ide);
 	}
 	
-	@Secured({"ROLE_STUDENT","ROLE_SECRETARY"})
+	@Secured({"ROLE_STUDENT","ROLE_SECRETARY","ROLE_DIRECTOR"})
 	@GetMapping("/requisitos/convenio2/{idconve}/{ide}")
 	public Map<String,Object> readConvenio2(@PathVariable int idconve,@PathVariable int ide) {
 		return requisitosService.readConvenios2(idconve,ide);
