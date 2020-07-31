@@ -176,7 +176,7 @@ public class UsuariosController {
 
 
 	
-	@Secured({"ROLE_DIGETTI", "ROLE_STUDENT","ROLE_TEACHER"})
+	@Secured({"ROLE_DIGETTI","ROLE_STUDENT","ROLE_TEACHER"})
 	@PostMapping("/add_user")
 	public int create_user(@RequestBody Usuarios users) {
 		return usuariosService.create_user(users);
