@@ -7,8 +7,7 @@ public class Solicitud {
 	private int idconvenio;
 	private int tipo;
 	public Solicitud() {
-		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 	
