@@ -22,7 +22,7 @@ public class SolicitudController {
 	@Autowired
 	private SolicitudService sService;
 	
-	@Secured({"ROLE_SECRETARY"})
+	@Secured({"ROLE_SECRETARY","ROLE_STUDENT"})
 	@PostMapping("/solicitud/add")
 	public int create(@RequestBody Solicitud req) {
 		System.out.println(req.toString());
