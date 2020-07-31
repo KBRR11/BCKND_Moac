@@ -55,37 +55,37 @@ public class UsuariosController {
 		return usuariosService.create_user_especial(users);
 	}
 	
-	@Secured({"ROLE_ADMIN","ROLE_SECRETARY"})
+	@Secured({"ROLE_ADMIN","ROLE_SECRETARY","ROLE_DIGETTI"})
 	@GetMapping("/all_active")
 	public Map<String, Object> readAll_Active() {
 		return usuariosService.readAll_Active();
 	}
 	
-	@Secured({"ROLE_ADMIN","ROLE_SECRETARY"})
+	@Secured({"ROLE_ADMIN","ROLE_SECRETARY","ROLE_DIGETTI"})
 	@GetMapping("/all_pending_Est")
 	public Map<String, Object> readAll_Pending_Est() {
 		return usuariosService.readAll_Pending_Est();
 	}
 	
-	@Secured({"ROLE_ADMIN","ROLE_SECRETARY"})
+	@Secured({"ROLE_ADMIN","ROLE_SECRETARY","ROLE_DIGETTI"})
 	@GetMapping("/all_pending_Doc")
 	public Map<String, Object> readAll_Pending_Doc() {
 		return usuariosService.readAll_Pending_Doc();
 	}
 	
-	@Secured({"ROLE_ADMIN","ROLE_SECRETARY"})
+	@Secured({"ROLE_ADMIN","ROLE_SECRETARY","ROLE_DIGETTI"})
 	@GetMapping("/all_students")
 	public Map<String, Object> readAll_Students() {
 		return usuariosService.readAll_Students();
 	}
 	
-	@Secured({"ROLE_ADMIN","ROLE_SECRETARY"})
+	@Secured({"ROLE_ADMIN","ROLE_SECRETARY","ROLE_DIGETTI"})
 	@GetMapping("/all_teachers")
 	public Map<String, Object> readAll_Teachers() {
 		return usuariosService.readAll_Teachers();
 	}
 	
-	@Secured({"ROLE_ADMIN","ROLE_SECRETARY","ROLE_STUDENT","ROLE_TEACHER"})
+	@Secured({"ROLE_ADMIN","ROLE_SECRETARY","ROLE_STUDENT","ROLE_TEACHER","ROLE_DIGETTI"})
 	@PutMapping("/upd/nom_user/{id}")
 	public int update_nomUser(@RequestBody Usuarios usuario, @PathVariable int id) {
 		usuario.setIdusuario(id);
@@ -131,19 +131,19 @@ public class UsuariosController {
 		return usuariosService.delete(id);
 	}
 	
-	@Secured({"ROLE_ADMIN","ROLE_SECRETARY"})
+	@Secured({"ROLE_ADMIN","ROLE_SECRETARY","ROLE_DIGETTI"})
 	@GetMapping("/contador_active")
 	public Map<String, Object> contadorUsers_Active() {
 		return usuariosService.contadorUsers_Active();
 	}
 	
-	@Secured({"ROLE_ADMIN","ROLE_SECRETARY"})
+	@Secured({"ROLE_ADMIN","ROLE_SECRETARY","ROLE_DIGETTI"})
 	@GetMapping("/contEst_active")
 	public Map<String, Object> contadorEstudents_Active() {
 		return usuariosService.contadorEstudents_Active();
 	}
 	
-	@Secured({"ROLE_ADMIN","ROLE_SECRETARY"})
+	@Secured({"ROLE_ADMIN","ROLE_SECRETARY","ROLE_DIGETTI"})
 	@GetMapping("/contTeach_active")
 	public Map<String, Object> contadorTeachers_Active() {
 		return usuariosService.contadorTeachers_Active();
@@ -176,7 +176,7 @@ public class UsuariosController {
 
 
 	
-	@Secured({"ROLE_DIGETTI", "ROLE_STUDENT"})
+	@Secured({"ROLE_DIGETTI", "ROLE_STUDENT","ROLE_TEACHER"})
 	@PostMapping("/add_user")
 	public int create_user(@RequestBody Usuarios users) {
 		return usuariosService.create_user(users);
