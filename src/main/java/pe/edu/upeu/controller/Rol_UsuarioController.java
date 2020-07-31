@@ -22,32 +22,32 @@ public class Rol_UsuarioController {
 	@Autowired
 	private Rol_UsuarioService roluserService;
 	
-	@Secured({"ROLE_STUDENT"})
+	@Secured({"ROLE_STUDENT","ROLE_DIGETTI"})
 	@PostMapping("/roluser/add")
 	public int create(@RequestBody Rol_Usuario ru) {
 		return roluserService.create(ru);
 	}
 	
-	@Secured({"ROLE_STUDENT"})
+	@Secured({"ROLE_STUDENT","ROLE_DIGETTI"})
 	@PutMapping("/roluser/{id}")
 	public int update(@RequestBody Rol_Usuario ru, @PathVariable int id ) {
 		ru.setIdrol_us(id);
 		return roluserService.update(ru);
 	}
 	
-	@Secured({"ROLE_STUDENT"})
+	@Secured({"ROLE_STUDENT","ROLE_DIGETTI"})
 	@DeleteMapping("/roluser/{id}")
 	public int delete(@PathVariable int id) {
 		return roluserService.delete(id);
 	}
 	
-	@Secured({"ROLE_STUDENT"})
+	@Secured({"ROLE_STUDENT","ROLE_DIGETTI"})
 	@GetMapping("/roluser/")
 	public Map<String, Object> readAll() {
 		return roluserService.readAll();
 
     }
-	@Secured({"ROLE_STUDENT"})
+	@Secured({"ROLE_STUDENT","ROLE_DIGETTI"})
 	@GetMapping("/roluser/{id}")
 	public Map<String,Object> read(@PathVariable int id) {
 		return roluserService.read(id);
