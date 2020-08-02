@@ -201,7 +201,12 @@ public class UsuariosController {
 		return usuariosService.listar(id);
 	}
 	
-
+	@Secured({"ROLE_SECRETARY","ROLE_DIRECTOR"})
+	@GetMapping("/listaridescuela/{idu}")
+	public Map<String,Object> listar_id_escuela(@PathVariable int idu) {
+		return usuariosService.veridescuela(idu);
+	}
+	
 	@Secured({"ROLE_SECRETARY","ROLE_TEACHER", "ROLE_ADMIN", "ROLE_STUDENT" , "ROLE_DIGETTI"})
 	@GetMapping("/listarDatosPersona/{id}")
 	public Map<String,Object> listarDatosPersona(@PathVariable int id) {
