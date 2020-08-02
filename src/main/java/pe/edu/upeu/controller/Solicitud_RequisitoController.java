@@ -109,6 +109,7 @@ public class Solicitud_RequisitoController {
 				archivoanterior.delete();
 			}
 		}
+		req.setRuta(nombreArchivo);
 		srService.update(req);
 		response.put("Recurso", 1);
 		response.put("mensaje", "has subido correctamente las fotos " + nombreArchivo);
