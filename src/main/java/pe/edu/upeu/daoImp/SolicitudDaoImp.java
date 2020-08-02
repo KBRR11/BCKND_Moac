@@ -99,7 +99,7 @@ public class SolicitudDaoImp implements SolicitudDao{
 	public Map<String, Object> uni_secre(int idconvocatoria) {
 		// TODO Auto-generated method stub
 		simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
-				.withProcedureName("PR_LISTAR_UNI_SECRE").withCatalogName("PR_LISTAR_UNI_SECRE")
+				.withProcedureName("PR_LISTAR_UNI_SECRE").withCatalogName("PKG_CRUD_SOLICITUDES")
 				.declareParameters(new SqlOutParameter("UNIVERSIDADES"
 						,OracleTypes.CURSOR,new ColumnMapRowMapper())
 						, new SqlParameter("P_IDCONVOCATORIA", Types.INTEGER)); 

@@ -47,10 +47,10 @@ public class GanadorDaoImp implements GanadorDao{
 		// TODO Auto-generated method stub
 		simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
 				.withProcedureName("PR_LISTAR_GANADORES").withCatalogName("PKG_CRUD_GANADORES")
-				.declareParameters(new SqlOutParameter("P_USUARIO ",OracleTypes.INTEGER,new ColumnMapRowMapper())
-						, new SqlParameter("P_IDDETALLE", Types.INTEGER)
+				.declareParameters(new SqlOutParameter("GANADORES ",OracleTypes.CURSOR,new ColumnMapRowMapper())
+						, new SqlParameter("P_IDCONVOCATORIA", Types.INTEGER)
 						, new SqlParameter("P_IDESCUELA", Types.INTEGER)); 
-		SqlParameterSource in = new MapSqlParameterSource().addValue("P_IDDETALLE", id_dc)
+		SqlParameterSource in = new MapSqlParameterSource().addValue("P_IDCONVOCATORIA", id_dc)
 														   .addValue("P_IDESCUELA", ide);
 		return  simpleJdbcCall.execute(in);
 	}
@@ -59,10 +59,10 @@ public class GanadorDaoImp implements GanadorDao{
 	public Map<String, Object> readAll(int id_dc) {
 		// TODO Auto-generated method stub
 		simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
-				.withProcedureName("PR_LISTAR_PERSONAS_ID").withCatalogName("PKG_CRUD_PERSONAS")
+				.withProcedureName("PR_LISTAR_PERSONAS_ID").withCatalogName("PKG_CRUD_GANADORES")
 				.declareParameters(new SqlOutParameter("P_CUR_PERSONAS",OracleTypes.CURSOR,new ColumnMapRowMapper())
-						, new SqlParameter("P_IDDETALLE", Types.INTEGER)); 
-		SqlParameterSource in = new MapSqlParameterSource().addValue("P_IDDETALLE", id_dc);
+						, new SqlParameter("P_IDCONVOCATORIA", Types.INTEGER)); 
+		SqlParameterSource in = new MapSqlParameterSource().addValue("P_IDCONVOCATORIA", id_dc);
 		return  simpleJdbcCall.execute(in);
 	}
 
