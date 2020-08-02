@@ -187,6 +187,12 @@ public class UsuariosServiceImp implements UsuariosService {
 		return usuariosDao.UpdateFoto(id, foto);
 	}
 
+	@Override
+	public Map<String, Object> veridescuela(int idu) {
+		// TODO Auto-generated method stub
+		return usuariosDao.veridescuela(idu);
+	}
+
 	
 
 }
