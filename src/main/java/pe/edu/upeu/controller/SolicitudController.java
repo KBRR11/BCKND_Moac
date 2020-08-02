@@ -74,4 +74,6 @@ public class SolicitudController {
 	public Map<String,Object> listarUniversidad(@PathVariable int iduser) {
 		return sService.listar_uni(iduser);
 	}
+	
+	
 }

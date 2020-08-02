@@ -32,9 +32,9 @@ public class SolicitudDaoImp implements SolicitudDao{
 	@Override
 	public Map<String, Object> read(int idsolicitud) {
 		simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
-				.withProcedureName("PR_BUSCAR_SOLICITUD").withCatalogName("PKG_CRUD_SOLICITUDES")
-				.declareParameters(new SqlOutParameter("SOLICITUDES",OracleTypes.CURSOR,new ColumnMapRowMapper()), new SqlParameter("P_IDREQUISITOS", Types.INTEGER)); 
-		SqlParameterSource in = new MapSqlParameterSource().addValue("P_IDSOLICITUD", idsolicitud);
+				.withProcedureName("PR_LISTAR_REQUISITO_SOLICITU").withCatalogName("PKG_CRUD_REQUISITO_SOLICITUD")
+				.declareParameters(new SqlOutParameter("REQUISITOS",OracleTypes.CURSOR,new ColumnMapRowMapper()), new SqlParameter("p_IDSOLICITUD", Types.INTEGER)); 
+		SqlParameterSource in = new MapSqlParameterSource().addValue("p_IDSOLICITUD", idsolicitud);
 		return  simpleJdbcCall.execute(in);
 	}
 
