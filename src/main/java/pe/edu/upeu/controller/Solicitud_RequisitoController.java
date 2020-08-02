@@ -90,7 +90,7 @@ public class Solicitud_RequisitoController {
 		String nombreArchivo = null ; 
 		if(!archivo.isEmpty()) {
 			nombreArchivo = UUID.randomUUID().toString()+"_"+archivo.getOriginalFilename().replace(" ", "");
-			rutaArchivo = Paths.get(".//src//main//resources//file//convocatoria//").resolve(nombreArchivo).toAbsolutePath();
+			rutaArchivo = Paths.get(".//src//main//resources//file//solicitud_requisito//").resolve(nombreArchivo).toAbsolutePath();
 		}
 		try {
 			
@@ -103,7 +103,7 @@ public class Solicitud_RequisitoController {
 		}
 		String nombrefotoanterior = req.getRuta();
 		if (nombrefotoanterior != null ) {
-			Path rutaFotoAnterior = Paths.get(".//src//main//resources//file//convocatoria//").resolve(nombrefotoanterior).toAbsolutePath();
+			Path rutaFotoAnterior = Paths.get(".//src//main//resources//file//solicitud_requisito//").resolve(nombrefotoanterior).toAbsolutePath();
 			File archivoanterior = rutaFotoAnterior.toFile();
 			if (archivoanterior.exists() && archivoanterior.canRead()) {
 				archivoanterior.delete();
