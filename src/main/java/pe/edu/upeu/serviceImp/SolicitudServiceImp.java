@@ -31,4 +31,34 @@ public class SolicitudServiceImp implements SolicitudService{
 		return solicitudDao.readAll();
 	}
 
+	@Override
+	public Map<String, Object> readSolicitud_Convocatoria(int idsolicitud) {
+		// TODO Auto-generated method stub
+		return solicitudDao.readSolicitud_Convocatoria(idsolicitud);
+	}
+
+	@Override
+	public Map<String, Object> readConv(int idusuario) {
+		// TODO Auto-generated method stub
+		return solicitudDao.readConv(idusuario);
+	}
+
+	@Override
+	public Map<String, Object> readSolicitudDetalleCatoria(int idusuario, int idconvocatoria, int iduniversidaduser) {
+		// TODO Auto-generated method stub
+		return solicitudDao.readSolicitudDetalleCatoria(idusuario, idconvocatoria, iduniversidaduser);
+	}
+
+	@Override
+	public Map<String, Object> read_ConvaActiva(int iduser) {
+		// TODO Auto-generated method stub
+		return solicitudDao.read_ConvaActiva(iduser);
+	}
+
+	@Override
+	public Map<String, Object> listar_uni(int iduser) {
+		// TODO Auto-generated method stub
+		return solicitudDao.listar_uni(iduser);
+	}
+
 }

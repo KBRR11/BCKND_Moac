@@ -237,17 +237,17 @@ public class UsuariosDaoImp implements UsuariosDao {
 	@Override
 	public int create_user(Usuarios users) {
 		// TODO Auto-generated method stub
-		return jdbcTemplate.update("call PKG_CRUD_USUARIOS.PR_CREAR_USER(?,?,?,?,?,?,?,?,?)",
-				users.getCodigo(),users.getUsuario(),new BCryptPasswordEncoder().encode((users.getPassword())),users.getSede(),
-				users.getTipo(),users.getIdep(), users.getCiclo(), users.getIdrol(), users.getN_documento());
+		return jdbcTemplate.update("call PKG_CRUD_USUARIOS.PR_CREAR_USER(?,?,?,?,?,?,?,?)",
+				users.getCodigo(),users.getUsuario(),new BCryptPasswordEncoder().encode((users.getPassword())),users.getSede()
+				,users.getIdep(), users.getCiclo(), users.getIdrol(), users.getN_documento());
 	}
 
 	@Override
 	public int update_user(Usuarios users) {
 		// TODO Auto-generated method stub
-		return jdbcTemplate.update("call PKG_CRUD_USUARIOS.PR_MODIFICAR_USER(?,?,?,?,?,?,?,?,?)",
-				users.getIdusuario(),users.getCodigo(),users.getUsuario(),new BCryptPasswordEncoder().encode((users.getPassword())),users.getSede(),
-				users.getTipo(),users.getIdep(), users.getCiclo(), users.getIdrol());
+		return jdbcTemplate.update("call PKG_CRUD_USUARIOS.PR_MODIFICAR_USER(?,?,?,?,?,?,?,?)",
+				users.getIdusuario(),users.getCodigo(),users.getUsuario(),new BCryptPasswordEncoder().encode((users.getPassword())),users.getSede()
+				,users.getIdep(), users.getCiclo(), users.getIdrol());
 	}
 
 	@Override

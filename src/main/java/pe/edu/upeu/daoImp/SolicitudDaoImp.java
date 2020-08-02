@@ -25,6 +25,7 @@ public class SolicitudDaoImp implements SolicitudDao{
 	@Override
 	public int create(Solicitud o) {
 		// TODO Auto-generated method stub
+		System.out.println(o.toString());
 		return jdbcTemplate.update("call PKG_CRUD_SOLICITUDES.PR_CREAR_SOLICITUD(?,?,?,?)",o.getIdusuario(),o.getIdconvocatoria(),o.getIdconvenio(),o.getTipo());
 	}
 
@@ -47,5 +48,51 @@ public class SolicitudDaoImp implements SolicitudDao{
 		return simpleJdbcCall.execute();
 	}
 	
+
+	@Override
+	public Map<String, Object> readSolicitud_Convocatoria(int idsolicitud) {
+		simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("PR_BUSCAR_SOLICITUD").withCatalogName("PKG_CRUD_SOLICITUDES")
+				.declareParameters(new SqlOutParameter("SOLICITUD",OracleTypes.CURSOR,new ColumnMapRowMapper()), new SqlParameter("P_IDUSUARIO", Types.INTEGER)); 
+		SqlParameterSource in = new MapSqlParameterSource().addValue("P_IDUSUARIO", idsolicitud);
+		return  simpleJdbcCall.execute(in);
+	}
+
+	@Override
+	public Map<String, Object> readConv(int idusuario) {
+		simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("PR_BUSCAR_SOLICITUD_CONVOCATORIA").withCatalogName("PKG_CRUD_SOLICITUDES")
+				.declareParameters(new SqlOutParameter("SOLICITUD",OracleTypes.CURSOR,new ColumnMapRowMapper()), new SqlParameter("P_IDUSUARIO", Types.INTEGER)); 
+		SqlParameterSource in = new MapSqlParameterSource().addValue("P_IDUSUARIO", idusuario);
+		return  simpleJdbcCall.execute(in);
+	}
+
+	@Override
+	public Map<String, Object> readSolicitudDetalleCatoria(int idusuario, int idconvocatoria, int iduniversidaduser) {
+		simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("PR_LISTAR_DETCONV").withCatalogName("PKG_CRUD_SOLICITUDES")
+				.declareParameters(new SqlOutParameter("SOLICITUD",OracleTypes.CURSOR,new ColumnMapRowMapper()), new SqlParameter("P_IDUSUARIO", Types.INTEGER)
+						,new SqlParameter("P_IDCONVOCATORIA", Types.INTEGER),new SqlParameter("P_IDUNIVERSIDAD", Types.INTEGER)); 
+		SqlParameterSource in = new MapSqlParameterSource().addValue("P_IDUSUARIO", idusuario).addValue("P_IDCONVOCATORIA", idconvocatoria).addValue("P_IDUNIVERSIDAD", iduniversidaduser);
+		return  simpleJdbcCall.execute(in);
+	}
+
+	@Override
+	public Map<String, Object> read_ConvaActiva(int iduser) {
+		simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("PR_LISTAR_CONVACTIVAS").withCatalogName("PKG_CRUD_SOLICITUDES")
+				.declareParameters(new SqlOutParameter("CONVOCATORIA",OracleTypes.CURSOR,new ColumnMapRowMapper()), new SqlParameter("P_USUARIO", Types.INTEGER)); 
+		SqlParameterSource in = new MapSqlParameterSource().addValue("P_USUARIO", iduser);
+		return  simpleJdbcCall.execute(in);
+	}
+
+	@Override
+	public Map<String, Object> listar_uni(int iduser) {
+		simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("PR_LISTAR_UNI").withCatalogName("PKG_CRUD_SOLICITUDES")
+				.declareParameters(new SqlOutParameter("UNIVERSIDADES",OracleTypes.CURSOR,new ColumnMapRowMapper()), new SqlParameter("P_USUARIO", Types.INTEGER)); 
+		SqlParameterSource in = new MapSqlParameterSource().addValue("P_USUARIO", iduser);
+		return  simpleJdbcCall.execute(in);
+	}
 
 }

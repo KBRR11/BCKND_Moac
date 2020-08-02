@@ -25,7 +25,9 @@ public class SolicitudController {
 	@Secured({"ROLE_SECRETARY","ROLE_STUDENT"})
 	@PostMapping("/solicitud/add")
 	public int create(@RequestBody Solicitud req) {
+		
 		System.out.println(req.toString());
+		System.out.println(req.getIdconvocatoria());
 		return sService.create(req);
 
 	}
@@ -36,11 +38,40 @@ public class SolicitudController {
 		return sService.read(id);
 	}
 	
-	
 	@Secured({"ROLE_STUDENT","ROLE_SECRETARY"})
 	@GetMapping("/solicitudes")
 	public Map<String, Object> readAll() {
 		return sService.readAll();
 
+	}
+	
+	@Secured({"ROLE_STUDENT","ROLE_SECRETARY"})
+	@GetMapping("/readConv/{idusuario}")
+	public Map<String,Object> readConv(@PathVariable int idusuario) {
+		return sService.readConv(idusuario);
+	}
+	//buscar solicitud
+	@Secured({"ROLE_STUDENT","ROLE_SECRETARY"})
+	@GetMapping("/readSolicitud_Convocatoria/{idso}")
+	public Map<String,Object> readSolicitud_Convocatoria(@PathVariable int idso) {
+		return sService.readSolicitud_Convocatoria(idso);
+	}
+	
+	@Secured({"ROLE_STUDENT","ROLE_SECRETARY"})
+	@GetMapping("/solicitud_deta_convo/{iduser}/{idconvo}/{idunie}")
+	public Map<String,Object> readSolicitudDetalleCatoria(@PathVariable int iduser,@PathVariable int idconvo,@PathVariable int idunie) {
+		return sService.readSolicitudDetalleCatoria(iduser, idconvo, idunie);
+	}
+	
+	@Secured({"ROLE_STUDENT","ROLE_SECRETARY"})
+	@GetMapping("/read_ConvaActiva/{iduser}")
+	public Map<String,Object> read_ConvaActiva(@PathVariable int iduser) {
+		return sService.read_ConvaActiva(iduser);
+	}
+	
+	@Secured({"ROLE_STUDENT","ROLE_SECRETARY"})
+	@GetMapping("/listarUniversidad/{iduser}")
+	public Map<String,Object> listarUniversidad(@PathVariable int iduser) {
+		return sService.listar_uni(iduser);
 	}
 }

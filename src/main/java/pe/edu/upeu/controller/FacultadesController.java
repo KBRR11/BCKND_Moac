@@ -23,7 +23,7 @@ public class FacultadesController {
 	@Autowired
 	private FacultadesService facultadesServices;
 	
-	@Secured({"ROLE_SECRETARY","ROLE_ADMIN"})
+	@Secured({"ROLE_SECRETARY","ROLE_ADMIN","ROLE_DIGETTI"})
 	@PostMapping("/facultades/add")
 	public int create(@RequestBody Facultades fac) {
 		System.out.println(fac.toString());
@@ -36,18 +36,18 @@ public class FacultadesController {
 		return facultadesServices.readAll();
 
 	}
-	@Secured({"ROLE_SECRETARY","ROLE_ADMIN"})
+	@Secured({"ROLE_SECRETARY","ROLE_ADMIN","ROLE_DIGETTI"})
 	@PutMapping("facultades/upd/{id}")
 	public int update(@RequestBody Facultades fac, @PathVariable int id ) {
 		fac.setIdfacultad(id);
 		return facultadesServices.update(fac);
 	}
-	@Secured({"ROLE_ADMIN","ROLE_SECRETARY"})
+	@Secured({"ROLE_ADMIN","ROLE_SECRETARY","ROLE_DIGETTI"})
 	@DeleteMapping("facultades/del/{id}")
 	public int delete(@PathVariable int id) {
 		return facultadesServices.delete(id);
 	}
-	@Secured({"ROLE_ADMIN","ROLE_SECRETARY","ROLE_STUDENT"})
+	@Secured({"ROLE_ADMIN","ROLE_SECRETARY","ROLE_STUDENT","ROLE_DIGETTI"})
 	@GetMapping("facultades/{id}")
 	public Map<String,Object> read(@PathVariable int id) {
 		return facultadesServices.read(id);
