@@ -95,4 +95,29 @@ public class SolicitudDaoImp implements SolicitudDao{
 		return  simpleJdbcCall.execute(in);
 	}
 
+	@Override
+	public Map<String, Object> uni_secre(int idconvocatoria) {
+		// TODO Auto-generated method stub
+		simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("PR_LISTAR_UNI_SECRE").withCatalogName("PR_LISTAR_UNI_SECRE")
+				.declareParameters(new SqlOutParameter("UNIVERSIDADES"
+						,OracleTypes.CURSOR,new ColumnMapRowMapper())
+						, new SqlParameter("P_IDCONVOCATORIA", Types.INTEGER)); 
+		SqlParameterSource in = new MapSqlParameterSource().addValue("P_IDCONVOCATORIA", idconvocatoria);
+		return  simpleJdbcCall.execute(in);
+	}
+
+	@Override
+	public Map<String, Object> solicitudes_direc(int idescuela, int idconvo) {
+		// TODO Auto-generated method stub
+		simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("PR_LISTAR_SOLI_DIREC").withCatalogName("PKG_CRUD_SOLICITUDES")
+				.declareParameters(new SqlOutParameter("SOLICITUDES"
+									,OracleTypes.CURSOR,new ColumnMapRowMapper())
+									, new SqlParameter("P_IDCONVOCATORIA", Types.INTEGER)
+									, new SqlParameter("P_IDEP", Types.INTEGER)); 
+		SqlParameterSource in = new MapSqlParameterSource().addValue("P_IDCONVOCATORIA", idconvo).addValue("P_IDEP", idescuela);
+		return  simpleJdbcCall.execute(in);
+	}
+
 }

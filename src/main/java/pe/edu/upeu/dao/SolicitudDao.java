@@ -13,4 +13,8 @@ public interface SolicitudDao {
 	public Map<String, Object> readAll();
 	public Map<String, Object> read_ConvaActiva(int iduser); 
 	public Map<String, Object> listar_uni(int iduser);
+	
+	//pa la secre
+	public Map<String, Object> uni_secre(int idconvocatoria);
+	public Map<String, Object> solicitudes_direc(int idescuela,int idconvo);
 }

@@ -297,5 +297,15 @@ public class UsuariosDaoImp implements UsuariosDao {
 		return jdbcTemplate.update("call PKG_CRUD_USUARIOS.PR_MODIFICAR_FOTO(?,?)",
 				id,foto);
 	}
+	
+	@Override
+	public Map<String, Object> veridescuela(int idu) {
+		simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("PR_LISTAR_USUARIOS_IDUSER").withCatalogName("PKG_CRUD_USUARIOS")
+				.declareParameters(new SqlOutParameter("P_USUARIO",OracleTypes.INTEGER),
+						new SqlParameter("P_IDUSER", Types.INTEGER)); 
+		SqlParameterSource in = new MapSqlParameterSource().addValue("P_IDUSER", idu);
+		return simpleJdbcCall.execute(in);
+	}
 
 }

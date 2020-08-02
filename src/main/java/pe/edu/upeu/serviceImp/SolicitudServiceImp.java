@@ -61,4 +61,16 @@ public class SolicitudServiceImp implements SolicitudService{
 		return solicitudDao.listar_uni(iduser);
 	}
 
+	@Override
+	public Map<String, Object> uni_secre(int idconvocatoria) {
+		// TODO Auto-generated method stub
+		return solicitudDao.uni_secre(idconvocatoria);
+	}
+
+	@Override
+	public Map<String, Object> solicitudes_direc(int idescuela, int idconvo) {
+		// TODO Auto-generated method stub
+		return solicitudDao.solicitudes_direc(idescuela, idconvo);
+	}
+
 }
