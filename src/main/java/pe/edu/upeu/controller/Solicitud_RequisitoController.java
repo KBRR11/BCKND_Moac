@@ -1,5 +1,6 @@
 package pe.edu.upeu.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -46,9 +47,9 @@ public class Solicitud_RequisitoController {
 	}
 	
 	@Secured({"ROLE_DIRECTOR","ROLE_SECRETARY"})
-	@GetMapping("/solicitud_requisitos/read/{idcon}/{idusuario}/{idconvocatoria}")
-	public Map<String,Object> read(@PathVariable int idcon,@PathVariable int idusuario,@PathVariable int idConvocatoria) {
-		return srService.read(idcon,idusuario,idConvocatoria);
+	@GetMapping("/solicitud_requisitos/read/{idsolicitud}")
+	public Map<String,Object> read(@PathVariable int idsolicitud) {
+		return srService.read(idsolicitud);
 	}
 	
 	@PostMapping("/solicitud_requisitos/create")
@@ -76,6 +77,39 @@ public class Solicitud_RequisitoController {
 			response.put("error", e.getMessage().concat(":").concat(e.getCause().getMessage()));
 			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+		response.put("Recurso", 1);
+		response.put("mensaje", "has subido correctamente las fotos " + nombreArchivo);
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+	}
+	@PostMapping("/solicitud_requisitos/update")
+	public ResponseEntity<?> updatearchivo(@RequestParam("archivo") MultipartFile archivo,@RequestParam int idsol_req){
+		Map<String, Object> response = new HashMap<>();
+		Solicitud_Requisito req=new Solicitud_Requisito();
+		req=srService.listar(idsol_req);
+		Path rutaArchivo = null;
+		String nombreArchivo = null ; 
+		if(!archivo.isEmpty()) {
+			nombreArchivo = UUID.randomUUID().toString()+"_"+archivo.getOriginalFilename().replace(" ", "");
+			rutaArchivo = Paths.get(".//src//main//resources//file//convocatoria//").resolve(nombreArchivo).toAbsolutePath();
+		}
+		try {
+			
+			Files.copy(archivo.getInputStream(), rutaArchivo);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			response.put("mensaje", "Error al subir la imagen : " +nombreArchivo);
+			response.put("error", e.getMessage().concat(":").concat(e.getCause().getMessage()));
+			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		String nombrefotoanterior = req.getRuta();
+		if (nombrefotoanterior != null ) {
+			Path rutaFotoAnterior = Paths.get(".//src//main//resources//file//convocatoria//").resolve(nombrefotoanterior).toAbsolutePath();
+			File archivoanterior = rutaFotoAnterior.toFile();
+			if (archivoanterior.exists() && archivoanterior.canRead()) {
+				archivoanterior.delete();
+			}
+		}
+		srService.update(req);
 		response.put("Recurso", 1);
 		response.put("mensaje", "has subido correctamente las fotos " + nombreArchivo);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);

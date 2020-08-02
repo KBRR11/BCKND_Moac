@@ -46,5 +46,6 @@ public class SolicitudDaoImp implements SolicitudDao{
 				.declareParameters(new SqlOutParameter("LIST_REQUISITO", OracleTypes.CURSOR, new ColumnMapRowMapper()));
 		return simpleJdbcCall.execute();
 	}
+	
 
 }
