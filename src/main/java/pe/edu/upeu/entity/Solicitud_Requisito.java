@@ -49,5 +49,10 @@ public class Solicitud_Requisito {
 	public void setIdrequisito_solicitud(int idrequisito_solicitud) {
 		this.idrequisito_solicitud = idrequisito_solicitud;
 	}
+	@Override
+	public String toString() {
+		return "Solicitud_Requisito [idrequisito=" + idrequisito + ", idsolicitud=" + idsolicitud + ", ruta=" + ruta
+				+ ", estado=" + estado + ", idrequisito_solicitud=" + idrequisito_solicitud + "]";
+	}
 	
 }

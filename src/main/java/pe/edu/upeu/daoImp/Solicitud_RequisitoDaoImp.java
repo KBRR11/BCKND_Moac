@@ -32,7 +32,7 @@ public class Solicitud_RequisitoDaoImp implements Requisito_SolicitudDao{
 	@Override
 	public int update(Solicitud_Requisito sr) {
 		// TODO Auto-generated method stub
-		return jdbcTemplate.update("call PKG_CRUD_REQUISITO_SOLICITUD.PR_ACTUALIZAR_REQUISITO_SOLICITU(?,?,?,?)",sr.getRuta(),sr.getIdsolicitud(),sr.getIdrequisito(),sr.getIdrequisito_solicitud());
+		return jdbcTemplate.update("call PKG_CRUD_REQUISITO_SOLICITUD.PR_ACTUALIZAR_REQUISITO_SOLICITU(?,?,?,?)",sr.getIdrequisito_solicitud(),sr.getRuta(),sr.getIdsolicitud(),sr.getIdrequisito());
 	}
 
 	@Override

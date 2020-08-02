@@ -2,6 +2,7 @@ package pe.edu.upeu.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -10,6 +11,9 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -82,10 +86,12 @@ public class Solicitud_RequisitoController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 	@PostMapping("/solicitud_requisitos/update")
-	public ResponseEntity<?> updatearchivo(@RequestParam("archivo") MultipartFile archivo,@RequestParam int idsol_req){
+	public ResponseEntity<?> updatearchivo(@RequestParam("archivo") MultipartFile archivo,@RequestParam("id") int idsol_req){
 		Map<String, Object> response = new HashMap<>();
 		Solicitud_Requisito req=new Solicitud_Requisito();
+		System.out.println(idsol_req);
 		req=srService.listar(idsol_req);
+		req.toString();
 		Path rutaArchivo = null;
 		String nombreArchivo = null ; 
 		if(!archivo.isEmpty()) {
@@ -114,5 +120,31 @@ public class Solicitud_RequisitoController {
 		response.put("Recurso", 1);
 		response.put("mensaje", "has subido correctamente las fotos " + nombreArchivo);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+	}
+	
+	@GetMapping("/solicitud_requisitos/{id}")
+	public ResponseEntity<Resource> verArchivo(@PathVariable int id){
+		Resource recurso = null;
+		Path rutaArchivo = null;
+		String nombreArchivo = null;
+		Solicitud_Requisito req=new Solicitud_Requisito();
+		req=srService.listar(id);
+		System.out.println(req);
+		nombreArchivo = req.getRuta();
+		rutaArchivo = Paths.get(".//src//main//resources//file//solicitud_requisito//").resolve(nombreArchivo).toAbsolutePath();
+		try {
+			recurso = new UrlResource(rutaArchivo.toUri());
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(!recurso.exists() && !recurso.isReadable()) {
+			throw new RuntimeException("Error :" + nombreArchivo);
+		}
+		HttpHeaders cabecera = new HttpHeaders();
+		cabecera.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"");
+		
+		return new ResponseEntity<Resource>(recurso, cabecera, HttpStatus.OK);
+		
 	}
 }
