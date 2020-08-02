@@ -30,13 +30,13 @@ public class OpcionController {
 		return opcionService.readAll();
 	}
 	
-	@Secured({"ROLE_STUDENT","ROLE_DIRECTOR"})
+	@Secured({"ROLE_STUDENT","ROLE_DIRECTOR","ROLE_DIGETTI"})
 	@GetMapping("/{idopcion}")
 	public Map<String, Object> read(@PathVariable int idopcion){
 		return opcionService.read(idopcion);
 	}
 	
-	@Secured({"ROLE_STUDENT"})
+	@Secured({"ROLE_STUDENT","ROLE_DIGETTI"})
 	@PostMapping("/add")
 	public int create(@RequestBody Opcion o ) {
 		return opcionService.create(o);

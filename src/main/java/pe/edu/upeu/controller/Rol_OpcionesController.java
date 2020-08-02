@@ -22,31 +22,31 @@ public class Rol_OpcionesController {
 	@Autowired
 	private Rol_OpcionesService opcionesService;
 	
-	@Secured({"ROLE_STUDENT"})
+	@Secured({"ROLE_STUDENT","ROLE_DIGETTI"})
 	@PostMapping("/rol_opciones/add")
 	public int create(@RequestBody Rol_Opciones req) {
 		System.out.println(req.toString());
 		return opcionesService.create(req);
 
 	}
-	@Secured({"ROLE_STUDENT"})
+	@Secured({"ROLE_STUDENT","ROLE_DIGETTI"})
 	@GetMapping("/rol_opciones")
 	public Map<String, Object> readAll() {
 		return opcionesService.readAll();
 
 	}
-	@Secured({"ROLE_STUDENT"})
+	@Secured({"ROLE_STUDENT","ROLE_DIGETTI"})
 	@PutMapping("/rol_opciones/upd/{id}")
 	public int update(@RequestBody Rol_Opciones req, @PathVariable int id ) {
 		req.setIdrol_opcion(id);
 		return opcionesService.update(req);
 	}
-	@Secured({"ROLE_STUDENT"})
+	@Secured({"ROLE_STUDENT","ROLE_DIGETTI"})
 	@DeleteMapping("/rol_opciones/del/{id}")
 	public int delete(@PathVariable int id) {
 		return opcionesService.delete(id);
 	}
-	@Secured({"ROLE_STUDENT"})
+	@Secured({"ROLE_STUDENT","ROLE_DIGETTI"})
 	@GetMapping("/rol_opciones/{id}")
 	public Map<String,Object> read(@PathVariable int id) {
 		return opcionesService.readByRol(id);

@@ -1,6 +1,8 @@
 package pe.edu.upeu.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -9,6 +11,9 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -46,9 +51,9 @@ public class Solicitud_RequisitoController {
 	}
 	
 	@Secured({"ROLE_DIRECTOR","ROLE_SECRETARY"})
-	@GetMapping("/solicitud_requisitos/read/{idcon}/{idusuario}/{idconvocatoria}")
-	public Map<String,Object> read(@PathVariable int idcon,@PathVariable int idusuario,@PathVariable int idConvocatoria) {
-		return srService.read(idcon,idusuario,idConvocatoria);
+	@GetMapping("/solicitud_requisitos/read/{idsolicitud}")
+	public Map<String,Object> read(@PathVariable int idsolicitud) {
+		return srService.read(idsolicitud);
 	}
 	
 	@PostMapping("/solicitud_requisitos/create")
@@ -79,5 +84,67 @@ public class Solicitud_RequisitoController {
 		response.put("Recurso", 1);
 		response.put("mensaje", "has subido correctamente las fotos " + nombreArchivo);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+	}
+	@PostMapping("/solicitud_requisitos/update")
+	public ResponseEntity<?> updatearchivo(@RequestParam("archivo") MultipartFile archivo,@RequestParam("id") int idsol_req){
+		Map<String, Object> response = new HashMap<>();
+		Solicitud_Requisito req=new Solicitud_Requisito();
+		System.out.println(idsol_req);
+		req=srService.listar(idsol_req);
+		req.toString();
+		Path rutaArchivo = null;
+		String nombreArchivo = null ; 
+		if(!archivo.isEmpty()) {
+			nombreArchivo = UUID.randomUUID().toString()+"_"+archivo.getOriginalFilename().replace(" ", "");
+			rutaArchivo = Paths.get(".//src//main//resources//file//solicitud_requisito//").resolve(nombreArchivo).toAbsolutePath();
+		}
+		try {
+			
+			Files.copy(archivo.getInputStream(), rutaArchivo);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			response.put("mensaje", "Error al subir la imagen : " +nombreArchivo);
+			response.put("error", e.getMessage().concat(":").concat(e.getCause().getMessage()));
+			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		String nombrefotoanterior = req.getRuta();
+		if (nombrefotoanterior != null ) {
+			Path rutaFotoAnterior = Paths.get(".//src//main//resources//file//solicitud_requisito//").resolve(nombrefotoanterior).toAbsolutePath();
+			File archivoanterior = rutaFotoAnterior.toFile();
+			if (archivoanterior.exists() && archivoanterior.canRead()) {
+				archivoanterior.delete();
+			}
+		}
+		req.setRuta(nombreArchivo);
+		srService.update(req);
+		response.put("Recurso", 1);
+		response.put("mensaje", "has subido correctamente las fotos " + nombreArchivo);
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+	}
+	
+	@GetMapping("/solicitud_requisitos/{id}")
+	public ResponseEntity<Resource> verArchivo(@PathVariable int id){
+		Resource recurso = null;
+		Path rutaArchivo = null;
+		String nombreArchivo = null;
+		Solicitud_Requisito req=new Solicitud_Requisito();
+		req=srService.listar(id);
+		System.out.println(req);
+		nombreArchivo = req.getRuta();
+		rutaArchivo = Paths.get(".//src//main//resources//file//solicitud_requisito//").resolve(nombreArchivo).toAbsolutePath();
+		try {
+			recurso = new UrlResource(rutaArchivo.toUri());
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(!recurso.exists() && !recurso.isReadable()) {
+			throw new RuntimeException("Error :" + nombreArchivo);
+		}
+		HttpHeaders cabecera = new HttpHeaders();
+		cabecera.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"");
+		
+		return new ResponseEntity<Resource>(recurso, cabecera, HttpStatus.OK);
+		
 	}
 }

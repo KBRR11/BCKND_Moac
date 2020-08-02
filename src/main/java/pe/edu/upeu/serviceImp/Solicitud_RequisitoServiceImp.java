@@ -26,9 +26,21 @@ public class Solicitud_RequisitoServiceImp implements Solicitud_RequisitoService
 	}
 
 	@Override
-	public Map<String, Object> read(int idconvenio,int iduser, int idconvo) {
+	public Map<String, Object> read(int idsolicitud) {
 		// TODO Auto-generated method stub
-		return rsDao.read(idconvenio,iduser,idconvo);
+		return rsDao.read(idsolicitud);
+	}
+
+	@Override
+	public Solicitud_Requisito listar(int id) {
+		// TODO Auto-generated method stub
+		return rsDao.listar(id);
+	}
+
+	@Override
+	public int update(Solicitud_Requisito sr) {
+		// TODO Auto-generated method stub
+		return rsDao.update(sr);
 	}
 
 }
