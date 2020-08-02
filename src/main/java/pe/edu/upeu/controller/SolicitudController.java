@@ -61,7 +61,7 @@ public class SolicitudController {
 	@GetMapping("/solicitud_deta_convo/{iduser}/{idconvo}/{idunie}")
 	public Map<String,Object> readSolicitudDetalleCatoria(@PathVariable int iduser,@PathVariable int idconvo,@PathVariable int idunie) {
 		return sService.readSolicitudDetalleCatoria(iduser, idconvo, idunie);
-	}
+	}	
 	
 	@Secured({"ROLE_STUDENT","ROLE_SECRETARY"})
 	@GetMapping("/read_ConvaActiva/{iduser}")
