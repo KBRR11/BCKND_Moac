@@ -74,12 +74,12 @@ public class SolicitudController {
 	public Map<String,Object> listarUniversidad(@PathVariable int iduser) {
 		return sService.listar_uni(iduser);
 	}
-	@Secured({"ROLE_STUDENT","ROLE_SECRETARY"})
+	@Secured({"ROLE_STUDENT","ROLE_SECRETARY","ROLE_DIRECTOR"})
 	@GetMapping("/secre_uni/{idconvocatoria}")
 	public Map<String,Object> uni_secre(@PathVariable int idconvocatoria) {
 		return sService.uni_secre(idconvocatoria);
 	}
-	@Secured({"ROLE_STUDENT","ROLE_SECRETARY"})
+	@Secured({"ROLE_STUDENT","ROLE_SECRETARY","ROLE_DIRECTOR"})
 	@GetMapping("/solicitudes_direc/{idescuela}/{idconvo}")
 	public Map<String,Object> solicitudes_direc(@PathVariable int idescuela,@PathVariable int idconvo) {
 		return sService.solicitudes_direc(idescuela, idconvo);
