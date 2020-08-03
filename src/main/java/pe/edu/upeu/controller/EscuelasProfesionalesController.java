@@ -41,7 +41,7 @@ public class EscuelasProfesionalesController {
 		return escuelasService.delete(id);
 	}
 	
-	@Secured({"ROLE_STUDENT","ROLE_SECRETARY"})
+	@Secured({"ROLE_STUDENT","ROLE_SECRETARY",})
 	@GetMapping("/escuela/")
 	public Map<String, Object> readAll() {
 		return escuelasService.readAll();

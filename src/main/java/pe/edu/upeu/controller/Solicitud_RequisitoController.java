@@ -38,7 +38,7 @@ public class Solicitud_RequisitoController {
 	@Autowired
 	private Solicitud_RequisitoService srService;
 	
-	@Secured({"ROLE_SECRETARY","ROLE_DIRECTOR"})
+	@Secured({"ROLE_SECRETARY","ROLE_DIRECTOR","ROLE_STUDENT"})
 	@PostMapping("/solicitud_requisitos/add")
 	public int create(@RequestBody Solicitud_Requisito solicitud) {
 		return srService.create(solicitud);
@@ -50,7 +50,7 @@ public class Solicitud_RequisitoController {
 		return srService.delete(id);
 	}
 	
-	@Secured({"ROLE_DIRECTOR","ROLE_SECRETARY"})
+	@Secured({"ROLE_DIRECTOR","ROLE_SECRETARY","ROLE_STUDENT"})
 	@GetMapping("/solicitud_requisitos/read/{idsolicitud}")
 	public Map<String,Object> read(@PathVariable int idsolicitud) {
 		return srService.read(idsolicitud);
